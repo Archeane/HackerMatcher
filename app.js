@@ -35,7 +35,7 @@ dotenv.load({ path: '.env.example' });
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
-const apiController = require('./controllers/api');
+//const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const hackathonController = require('./controllers/hackathon.js');
 const chatController = require('./controllers/chat.js');
@@ -229,7 +229,6 @@ app.get('/hackathons/:id/visualization', hackathonController.getHackathonVisuali
 app.post('/hackathons/:id/attend', passportConfig.isAuthenticated, hackathonController.postAttend);
 /**
  * API examples routes.
- */
 app.get('/api', apiController.getApi);
 app.get('/api/lastfm', apiController.getLastfm);
 app.get('/api/nyt', apiController.getNewYorkTimes);
@@ -290,7 +289,7 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 
 /**
  * OAuth authorization routes. (API examples)
- */
+ */ 
 app.get('/auth/foursquare', passport.authorize('foursquare'));
 app.get('/auth/foursquare/callback', passport.authorize('foursquare', { failureRedirect: '/api' }), (req, res) => {
   res.redirect('/api/foursquare');

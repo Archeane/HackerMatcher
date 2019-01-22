@@ -1,13 +1,13 @@
 const passport = require('passport');
 const request = require('request');
-const { Strategy: InstagramStrategy } = require('passport-instagram');
+// const { Strategy: InstagramStrategy } = require('passport-instagram');
 const { Strategy: LocalStrategy } = require('passport-local');
-const { Strategy: FacebookStrategy } = require('passport-facebook');
-const { Strategy: TwitterStrategy } = require('passport-twitter');
-const { Strategy: GitHubStrategy } = require('passport-github');
-const { OAuth2Strategy: GoogleStrategy } = require('passport-google-oauth');
-const { Strategy: LinkedInStrategy } = require('passport-linkedin-oauth2');
-const { Strategy: OpenIDStrategy } = require('passport-openid');
+// const { Strategy: FacebookStrategy } = require('passport-facebook');
+// const { Strategy: TwitterStrategy } = require('passport-twitter');
+// const { Strategy: GitHubStrategy } = require('passport-github');
+// const { OAuth2Strategy: GoogleStrategy } = require('passport-google-oauth');
+// const { Strategy: LinkedInStrategy } = require('passport-linkedin-oauth2');
+// const { Strategy: OpenIDStrategy } = require('passport-openid');
 const { OAuthStrategy } = require('passport-oauth');
 const { OAuth2Strategy } = require('passport-oauth');
 
@@ -60,7 +60,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
 /**
  * Sign in with Facebook.
  */
-passport.use(new FacebookStrategy({
+/*passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_ID,
   clientSecret: process.env.FACEBOOK_SECRET,
   callbackURL: '/auth/facebook/callback',
@@ -115,12 +115,12 @@ passport.use(new FacebookStrategy({
       });
     });
   }
-}));
+}));*/
 
 /**
  * Sign in with GitHub.
  */
-passport.use(new GitHubStrategy({
+/*passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_ID,
   clientSecret: process.env.GITHUB_SECRET,
   callbackURL: '/auth/github/callback',
@@ -174,12 +174,12 @@ passport.use(new GitHubStrategy({
       });
     });
   }
-}));
+}));*/
 
 /**
  * Sign in with Twitter.
  */
-passport.use(new TwitterStrategy({
+/*passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_KEY,
   consumerSecret: process.env.TWITTER_SECRET,
   callbackURL: '/auth/twitter/callback',
@@ -228,12 +228,12 @@ passport.use(new TwitterStrategy({
       });
     });
   }
-}));
+}));*/
 
 /**
  * Sign in with Google.
  */
-passport.use(new GoogleStrategy({
+/*passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_ID,
   clientSecret: process.env.GOOGLE_SECRET,
   callbackURL: '/auth/google/callback',
@@ -287,11 +287,11 @@ passport.use(new GoogleStrategy({
     });
   }
 }));
-
+*/
 /**
  * Sign in with LinkedIn.
  */
-passport.use(new LinkedInStrategy({
+/*passport.use(new LinkedInStrategy({
   clientID: process.env.LINKEDIN_ID,
   clientSecret: process.env.LINKEDIN_SECRET,
   callbackURL: process.env.LINKEDIN_CALLBACK_URL,
@@ -348,12 +348,12 @@ passport.use(new LinkedInStrategy({
       });
     });
   }
-}));
+}));*/
 
 /**
  * Sign in with Instagram.
  */
-passport.use(new InstagramStrategy({
+/*passport.use(new InstagramStrategy({
   clientID: process.env.INSTAGRAM_ID,
   clientSecret: process.env.INSTAGRAM_SECRET,
   callbackURL: '/auth/instagram/callback',
@@ -401,12 +401,12 @@ passport.use(new InstagramStrategy({
       });
     });
   }
-}));
+}));*/
 
 /**
  * Tumblr API OAuth.
  */
-passport.use('tumblr', new OAuthStrategy({
+/*passport.use('tumblr', new OAuthStrategy({
   requestTokenURL: 'https://www.tumblr.com/oauth/request_token',
   accessTokenURL: 'https://www.tumblr.com/oauth/access_token',
   userAuthorizationURL: 'https://www.tumblr.com/oauth/authorize',
@@ -423,12 +423,12 @@ passport.use('tumblr', new OAuthStrategy({
       done(err, user);
     });
   });
-}));
+}));*/
 
 /**
  * Foursquare API OAuth.
  */
-passport.use('foursquare', new OAuth2Strategy({
+/*passport.use('foursquare', new OAuth2Strategy({
   authorizationURL: 'https://foursquare.com/oauth2/authorize',
   tokenURL: 'https://foursquare.com/oauth2/access_token',
   clientID: process.env.FOURSQUARE_ID,
@@ -445,11 +445,11 @@ passport.use('foursquare', new OAuth2Strategy({
     });
   });
 }));
-
+*/
 /**
  * Steam API OpenID.
  */
-passport.use(new OpenIDStrategy({
+/*passport.use(new OpenIDStrategy({
   apiKey: process.env.STEAM_KEY,
   providerURL: 'http://steamcommunity.com/openid',
   returnURL: `${process.env.BASE_URL}/auth/steam/callback`,
@@ -508,12 +508,12 @@ passport.use(new OpenIDStrategy({
       }
     });
   }
-}));
+}));*/
 
 /**
  * Pinterest API OAuth.
  */
-passport.use('pinterest', new OAuth2Strategy({
+/*passport.use('pinterest', new OAuth2Strategy({
   authorizationURL: 'https://api.pinterest.com/oauth/',
   tokenURL: 'https://api.pinterest.com/v1/oauth/token',
   clientID: process.env.PINTEREST_ID,
@@ -530,7 +530,7 @@ passport.use('pinterest', new OAuth2Strategy({
     });
   });
 }));
-
+*/
 /**
  * Login Required middleware.
  */
