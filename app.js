@@ -78,9 +78,9 @@ app.use(sass({
   dest: path.join(__dirname, 'public')
 }));
 if (app.get('env') == 'production') {
-  app.use(morgan('common', { skip: function(req, res) { return res.statusCode < 400 }, stream: __dirname + '/../morgan.log' }));
+  app.use(logger('common', { skip: function(req, res) { return res.statusCode < 400 }, stream: __dirname + '/../morgan.log' }));
 } else {
-  app.use(morgan('dev'));
+  app.use(logger('dev'));
 }
 app.use(helmet());
 app.use(bodyParser.json());

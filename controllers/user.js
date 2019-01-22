@@ -15,11 +15,33 @@ const fs = require('fs');
 
 const randomstring = require('randomstring');
 const randomBytesAsync = promisify(crypto.randomBytes);
+//console.log(JSON.parse(process.env.GOOGLE_APPLICATION));
+const path = require('path');
+const gTokenPath = path.join(`${__dirname}/pfp-upload.json`);
+fs.writeFileSync(gTokenPath , process.env.GCS_JSON_TOKEN);
+
+//const gcsKeyFile = JSON.parse(process.env.GCS_JSON_TOKEN);
+
 
 const { Storage } = require('@google-cloud/storage');
 var storage = new Storage({
   projectId: process.env.GOOGLE_CLOUD_STORAGE_PROJECT_ID,
-  keyFilename: process.env.GOOGLE_CLOUD_STORAGE_KEYFILE_NAME
+  credentials:{
+    "type": "service_account",
+  "project_id": process.env.GOOGLE_CLOUD_STORAGE_PROJECT_ID,
+  "private_key_id": process.env.GOOGLE_CLOUD_STORAGE_PRIVATE_KEY_ID,
+  "private_key": process.env.GOOGLE_CLOUD_STORAGE_PRIVATE_KEY,
+  "client_email": process.env.GOOGLE_CLOUD_STORAGE_CLIENT_EMAIL,
+  "client_id": process.env.GOOGLE_CLOUD_CLIENT_ID,
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": process.env.GOOGLE_CLOUD_CLIENT_X509_CERT_URL
+
+  }
+  //keyFilename: gTokenPath
+  //keyFilename: process.env.GOOGLE_CLOUD_STORAGE_KEYFILE_NAME
+  //keyFile: JSON.parse(process.env.GOOGLE_APPLICATION)
 });
 var myBucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
 var transporter = nodemailer.createTransport({
