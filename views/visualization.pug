@@ -1,0 +1,47 @@
+extends layout
+
+block append css
+    link(rel='stylesheet', href='/css/visualization.css')
+
+block append head
+    script(src="/js/lib/d3.min.js")
+    script(src="/js/visualization.js")
+
+block content
+  .row
+    .col-md-3(style="margin-left:-8em;")
+      <aside id="filters">
+        <h1 class="bigHead">FILTER SHOP ITEMS</h1>
+        <div class="filter">
+          <h1>Major</h1>
+          <div class="bump" id="major">
+          </div>
+        </div>
+        <div class="filter">
+          <h1>Graduation Year</h1>
+          <div class="bump" id="graduationYear">
+          </div>
+        </div>
+        <div class="filter">
+          <h1>Hackathons</h1>
+          <div class="specBump" id="numOfHackathons">
+          </div>
+        </div>
+        <div class="filter">
+          <h1>Education Level</h1>
+          <div class="bump" id="educationLevel">
+          </div>
+        </div>
+        <div class="filter">
+          <h1 id="hidedummyh1">Set filteadwdwrs</h1>
+          <div class="bump">
+            button.btn-primary#setFilters Set Filters
+          </div>
+        </div>
+      </aside>
+    .col-md-8
+      <div id = "vis"></div>
+    .col-md-1
+    script.
+        var Matches = !{JSON.stringify(matches)};
+        //console.log(Matches);

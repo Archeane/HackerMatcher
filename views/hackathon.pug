@@ -1,0 +1,87 @@
+extends layout
+
+block append css
+  link(rel='stylesheet', href='/css/hackathon.css')
+
+block append head
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js')
+  script(src='/js/hackathon.js')
+  
+
+block content
+  .profile-page
+    <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
+    .main.main-raised
+      .profile-content
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto">
+            <div class="profile">
+              <div class="avatar">
+                  img#logo
+              </div>
+              <div class="name">
+                <h3 class="title" id='name'></h3>
+                <h5 id="university"></h5>
+                <h6 id="date"></h6>
+                <h6 id="location"></h6>
+                <a href="" id="website" class="btn btn-just-icon btn-link btn-dribbble"><i class="fas fa-link"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="description text-center">
+            <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+        </div>
+        .text-center
+          p#successResponse(style="color:green;") 
+          p#errorResponse(style="color:red;")  later 
+          button.btn.btn-primary(id="attendHackathonButton") I'm going to this!
+        .text-center
+          h3.title
+            | Top Similiar Hackers 
+          hr
+        .text-center
+          p#changePrefMessage You haven't filled out your preferences scores. Please fill out your preferences scores to see matching hackers.  
+          p#fillPrefMessage You don't have any preferences listed. Please fill out your preferences to see matching hackers
+          p#zerohackers There's no hackers who registered for this hackathon yet. Please try again later
+          p#zeromatch There are no hackers who matches your preferences. Please change your preferences settings or click <a id="allHackers">here</a> to view all hackers. 
+        .text-center
+          <button type="button" class="btn btn-info" id="pref">Change Preferences</button>
+          //TODO: make showVis visible only when things are processed
+          <button type="button" class="btn btn-info" id="showVis">Show Visualization</button>
+
+        <div id = "app">
+          <div class="row" style="padding-top: 2em; padding-bottom:2em">
+            .col-md-auto
+            <div class="col-md-auto hacker" v-for="(hacker, index) in hackers">
+              <div class="img__wrap">
+                //picture
+                <a v-bind:href="'/users/'+hacker[0].email">
+                  <img v-bind:src="hacker[0].picture" class="img__img" />
+                </a>
+                //picture description
+                <a v-bind:href="'/users/'+hacker[0].email">
+                  <div class="img__description">
+                    <p>{{hacker[0].major}}</p>
+                  </div>
+                </a>
+              </div>
+              //preferences
+              <div v-for="(hackerPref, index) in hacker[1]">
+                <div v-for="(preference, idx) in hackerPref"> 
+                  <li>{{preference}}</li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+  
+  <div id = "vis">
+    
+  </div>
+  
+  script.
+    var Hackathon = !{JSON.stringify(Hackathon)};
+    var result = !{JSON.stringify(result)};
+    var currentHacker = !{JSON.stringify(currentHacker)};

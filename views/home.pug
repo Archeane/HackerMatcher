@@ -1,0 +1,28 @@
+extends layout
+
+block append head
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js')
+  script(src='/js/home.js')
+
+block append css
+  link(href="/css/home.css", rel="stylesheet", type="text/css")
+
+block content
+  h1#title Choose Your Hackathon
+  #app
+    <div class="content row">
+      <div class="card col-md-5 offset-md-1" v-for="(hackathon, index) in allhackathons">
+          <div class="firstinfo">
+            <a v-bind:href="'/hackathons/'+hackathon.id"><img style="margin-left: -100px;" v-bind:src="hackathon.logo" v-bind:alt="hackathon.name" /></a>
+            <div class="profileinfo">
+                <a v-bind:href="'/hackathons/'+hackathon.id"><h1>{{hackathon.name}}</h1></a>
+                <h3>{{hackathon.startDate}} - {{hackathon.endDate}}</h3>
+                <p class="bio">{{hackathon.university}} <br>{{hackathon.city}}, {{hackathon.state}}</p>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  script.
+    var Hackathons = !{JSON.stringify(hackathons)};
+    
