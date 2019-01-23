@@ -1,6 +1,9 @@
 const { promisify } = require('util');
 const Hackathon = require('../models/Hackathon');
 const User = require('../models/User');
+var spawn = require("child_process").spawn;
+const { fork } = require('child_process');
+
 
 function createTestUsers(k){
 	var fs = require('fs');
@@ -134,7 +137,49 @@ exports.getHackathon = async(req,res, next) => {
 				title: hackathon.name, Hackathon: hackathon, result: hackathon.hackers, currentHacker: req.user
 			});
 		}*/
-		var zerorpc = require("zerorpc");
+
+		var process = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
+		var processedData = false;
+		process.stdout.on('data', function(data){
+			processedData = data.toString();
+		});
+
+		process.stdout.on('end', function(){
+			if(processedData != false){
+				var arr = eval("["+processedData+"]")[0];
+				pleasework = arr;
+				if(arr.length > 0){
+					if(arr.length >= 10){
+						arr = arr.slice(0, 10);
+					}
+					var toptenhackers = [];
+					var found = arr.length-1;
+					arr.forEach((hacker) =>{
+						User.findOne({'_id': hacker[0]}, (err, user)=>{
+							if(err){throw err;}
+							toptenhackers.push(user);
+							found--;
+							if(found <= 0){
+								res.render('hackathon', {
+									title: hackathon.name, Hackathon: hackathon, result: toptenhackers, currentHacker: req.user
+								});
+							}
+						});
+					}); //end of foreach
+				}else{
+					pleasework = -1;
+					res.render('hackathon', {
+						title: hackathon.name, Hackathon: hackathon, result: 500, currentHacker: req.user
+					});
+				}
+			}else{
+				return res.render('hackathon', {
+					title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
+				});
+			}
+		});
+
+		/*var zerorpc = require("zerorpc");
 		var client = new zerorpc.Client();
 		client.connect("tcp://127.0.0.1:80");
 		console.log('140');
@@ -149,7 +194,7 @@ exports.getHackathon = async(req,res, next) => {
 					title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
 				});
 			}
-			/*if(response){
+			if(response){
 				console.log(response);
 				var emails = response;
 				pleasework = response; //global variable- save matching algorithmn result for visualization
@@ -181,16 +226,69 @@ exports.getHackathon = async(req,res, next) => {
 				}
 			}else{
 				return res.status(404).send("Error! Sorry, the server is experiencing problems right now. Please try again later.");	
-			}*/
-		});
+			}
+		});*/
 	}
 };
 
 exports.getHackathonVisualization = (req, res, next) =>{
 	if(pleasework == false){
 		Hackathon.findOne({id:req.params.id}, (err, hackathon)=>{
-			if(err){throw err;}
-			var zerorpc = require("zerorpc");
+			if(err){return next(err);}
+			var process = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
+			var processedData = false;
+			process.stdout.on('data', function(data){
+				processedData = data.toString();
+			});
+
+			process.stdout.on('end', function(){
+				if(processedData != false){
+					var topfiftyhackers;
+					if(processedData.length >= 50){
+						topfiftyhackers = processedData.slice(0, 50); 
+					}else{
+						topfiftyhackers = processedData;
+					}
+					var minifiedUsers = [];						//array of top 50 hackers with minified data
+					new Promise(async(resolve, reject) => {
+						for(let hacker of topfiftyhackers){
+							try{
+								let data = await User.findOne({'_id':hacker[0]});
+								var user = JSON.stringify({
+									"id": data._id,
+									"email":data.email,
+									"numOfHackathons":data.numOfHackathons,
+									"name": data.profile.name,
+									"profileurl": data.profile.picture,
+									"school":data.profile.school,
+									"major":data.profile.major,
+									"graduationYear":data.profile.graduationYear,
+									"educationLevel":data.profile.educationLevel,
+									"score": hacker[1]
+								});
+								//console.log(user);
+								minifiedUsers.push(user);
+							}catch(err){continue;}
+						}
+						//console.log(minifiedUsers);
+						resolve(minifiedUsers);
+					}).then(function(result){
+						if(minifiedUsers && minifiedUsers.length >= 0){
+							res.render('visualization', {
+								title:'Visualization', matches: result
+							});
+						}else{
+							res.render('visualization', {
+								title:'Visualization', matches: false
+							});
+						}
+					}, function(err){
+						return next(err);
+					});
+				}
+			});
+
+			/*var zerorpc = require("zerorpc");
 
 			var client = new zerorpc.Client();
 			client.connect("tcp://127.0.0.1:4242");
@@ -275,7 +373,7 @@ exports.getHackathonVisualization = (req, res, next) =>{
 					return next(err);
 					});
 				}
-			});
+			});*/
 			
 		});
 	}else if(pleasework == -1){

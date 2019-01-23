@@ -1,5 +1,8 @@
 import zerorpc
 from pymongo import MongoClient
+import sys
+import json
+
 
 #client = MongoClient('mongodb://localhost:27017')
 #db = client['test']
@@ -79,12 +82,46 @@ def calculateallscores(currentHacker, allHackers):
     return totalscores
 
 
+userEmail = sys.argv[1]
+hackathonId = sys.argv[2]
+
+User = db['users'].find_one({'email': userEmail})
+Hackathon = db['hackathons'].find_one({'id': hackathonId})
+allHackersEmail = Hackathon['hackers']
+
+allHackers = []
+for id in allHackersEmail:
+    hacker = db['users'].find_one(id)
+    if hacker != None:
+        allHackers.append(hacker)
+
+arr = calculateallscores(User, allHackers)
+print(arr)
+
+'''
 class HelloRPC(object):
     def hello(self, user, hackathon):
-        return "hi"
+        currentHacker = db['users'].find_one({'email':user})
+        #currentHackathon = db['hackathons'].find_one({'name': hackathon})
+        Hackathon = db['hackathons'].find_one({'id': hackathon})
+        allHackersEmails = Hackathon['hackers']
+        #print('88',allHackersEmails)
+        allHackers = []
+        for email in allHackersEmails:
+            if not str(email) == str(currentHacker['_id']):
+                hacker = db['users'].find_one(email)
+                if hacker != None:
+                    allHackers.append(hacker)
+        #print('95',allHackers)
+        #print('96', currentHacker)
+        arr = calculateallscores(currentHacker, allHackers)
+        print('97',arr)
+        return arr
+
         
 
 
 s = zerorpc.Server(HelloRPC())
 s.bind("tcp://0.0.0.0:80")
 s.run()
+'''
