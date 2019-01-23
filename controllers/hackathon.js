@@ -140,6 +140,8 @@ exports.getHackathon = async(req,res, next) => {
 		console.log('140');
 		var process = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
 		var processedData = false;
+		process.stdout._handle.setBlocking(true)
+
 		process.stdout.on('data', function(data){
 			console.log('144');
 			processedData = data.toString();
@@ -151,7 +153,7 @@ exports.getHackathon = async(req,res, next) => {
 			console.log(processedData);
 			if(processedData != false){
 				var arr = eval("["+processedData+"]")[0];
-				console.log(ar);
+				console.log(arr);
 				pleasework = arr;
 				if(arr.length > 0){
 					if(arr.length >= 10){
