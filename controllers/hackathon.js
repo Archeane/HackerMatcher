@@ -117,7 +117,7 @@ let pleasework = false;
 exports.getHackathon = async(req,res, next) => {
 	let hackathon = await Hackathon.findOne({id: req.params.id});
 	//verify user has filled in carescores
-	if(req.user.careScores.interests == -1 && req.user.careScores.languages == -1 && req.user.careScores.technologies == -1 && req.user.careScores.fields == -1){
+	/*if(req.user.careScores.interests == -1 && req.user.careScores.languages == -1 && req.user.careScores.technologies == -1 && req.user.careScores.fields == -1){
 		return res.render('hackathon', {
 			title: hackathon.name, Hackathon: hackathon, result: false, currentHacker: req.user
 		});
@@ -238,7 +238,7 @@ exports.getHackathon = async(req,res, next) => {
 				return res.status(404).send("Error! Sorry, the server is experiencing problems right now. Please try again later.");	
 			}
 		});*/
-	}
+	//}
 };
 
 exports.getHackathonVisualization = (req, res, next) =>{
