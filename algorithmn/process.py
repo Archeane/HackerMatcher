@@ -82,24 +82,7 @@ def calculateallscores(currentHacker, allHackers):
 class HelloRPC(object):
     def hello(self, user, hackathon):
         return "hi"
-        '''
-        currentHacker = db['users'].find_one({'email':user})
-        #currentHackathon = db['hackathons'].find_one({'name': hackathon})
-        Hackathon = db['hackathons'].find_one({'id': hackathon})
-        allHackersEmails = Hackathon['hackers']
-        #print('88',allHackersEmails)
-        allHackers = []
-        for email in allHackersEmails:
-            if not str(email) == str(currentHacker['_id']):
-                hacker = db['users'].find_one(email)
-                if hacker != None:
-                    allHackers.append(hacker)
-        #print('95',allHackers)
-        #print('96', currentHacker)
-        arr = calculateallscores(currentHacker, allHackers)
-        print('97',arr)
-        return arr
-        '''
+
 
 s = zerorpc.Server(HelloRPC())
 s.bind("tcp://0.0.0.0:4242")
