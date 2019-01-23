@@ -120,6 +120,7 @@ exports.postSignup = (req, res, next) => {
   const secretToken = randomstring.generate();
   var confirmurl = process.env.BASE_URL+'/verifyemail?token='+secretToken;
   const user = new User({
+    name: req.body.firstname+" "+req.body.lastname,
     email: req.body.email.replace(/\s/g, ''),
     password: req.body.password,
     emailVerifyToken: secretToken,
@@ -135,7 +136,7 @@ exports.postSignup = (req, res, next) => {
     //TODO: send email with verification code
     user.save((err) => {
       if (err) { return next(err); }
-        var mailOptions = {
+        /*var mailOptions = {
           from: process.env.GOOGLE_EMAIL_USERNAME,
           to: user.email,
           subject: 'HackerMatcher - Verify Your Email',
@@ -149,7 +150,13 @@ exports.postSignup = (req, res, next) => {
           //}
         });
         
-        res.send('We have sent a verification link to your email. Please activate your account.');
+        res.send('We have sent a verification link to your email. Please activate your account.');*/
+        req.logIn(user, (err) => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect('/register');
+        });
     });
   });
 };
@@ -214,11 +221,9 @@ function uploadImgToGcloud(file){
 }
 
 exports.postProfilePicture = (req, res,next)=>{
-  console.log('195')
   const file = req.file;
   User.findById(req.user.id, (err, user)=>{
     if(file){ //upload pfp to gcloud
-      console.log('199');
         var localReadStream = fs.createReadStream(file.path);
         const gcsname = Date.now() + file.originalname;
         var image = myBucket.file(gcsname);
@@ -875,7 +880,7 @@ exports.postForgot = (req, res, next) => {
 };
 
 
-exports.getUser = (req, res) => {
+exports.getUser = (req, res, next) => {
   //console.log(req.params);
   //console.log(req.params.id);
   if(req.user && req.params.id == req.user._id){
@@ -883,7 +888,7 @@ exports.getUser = (req, res) => {
       title:'Account Management', Profile: req.user
     })
   }else{
-    User.findOne({"_id": req.params.id}, (err, user) => {
+    User.findOne({"email": req.params.id}, (err, user) => {
       if(err){return next(err);}
       res.render('account/profile', {
         title: 'Account Management', Profile:user

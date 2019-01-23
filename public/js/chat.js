@@ -86,7 +86,6 @@ for(i = 0; i < Participants.length; i++){
 //display messages to this conversation room
 socket.on('new message', function(sender, msg, conversationId){
   var date = moment();
-  
   //determine if current user sent the message
   var currentUserMessage = false;
   if(sender.toString() === User.name.toString()){

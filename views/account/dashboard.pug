@@ -62,7 +62,7 @@ block content
           ul#social-menu
             <li class="social-items" v-for="(socialmedia, index) in socialmedias">
               //<a v-if="socialmedia[0] == 'phone'" v-bind:value="socialmedia[1]" ><i class="fas fa-mobile fa-3x"></i></a>
-              <a v-if="socialmedia[0] == 'devpost'" v-bind:href="socialmedia[1]"><img src="/assets/devpost.png" height=30 style="margin-top:-10px" /></a>
+              <a v-if="socialmedia[0] == 'devpost'" v-bind:href="socialmedia[1]"><img src="/assets/devpost.png" height=35 style="margin-top:-10px" /></a>
               <a v-if="socialmedia[0] == 'website'" v-bind:href="socialmedia[1]"><i class="fab fa-blogger fa-3x" ></i></a>
               <a v-else v-bind:href="socialmedia[1]"><i v-bind:class="[{'fab': true}, socialmedia[0] ? 'fa-' + socialmedia[0] : '', {'fa-3x': true}]"></i></a>
             </li>

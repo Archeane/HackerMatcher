@@ -126,6 +126,7 @@ if(result == false){
 	//currentHackerLanguages = [d,e,f]	  result[0]['preferences']['languages'] = [e]
 	//prefernces[0] = [a,e]
 	var hackers = [];  //preferences[i] = common preferences between thisHacker and hacker[i]
+	//console.log(result);
 	for(let i = 0; i < result.length; i++){
 		var thishackerpref = []; //array of common preferences
 		const interestsArr = result[i]['preferences']['interests'];

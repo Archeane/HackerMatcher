@@ -129,16 +129,19 @@ exports.getHackathon = async(req,res, next) => {
 			title: hackathon.name, Hackathon: hackathon, result: -1, currentHacker: req.user
 		});
 	}else{
-		if(hackathon.hackers.length == 2 && hackathon.hackers.toString().includes(req.user._id.toString())){
+		/*if(hackathon.hackers.length == 2 && hackathon.hackers.toString().includes(req.user._id.toString())){
 			return res.render('hackathon', {
 				title: hackathon.name, Hackathon: hackathon, result: hackathon.hackers, currentHacker: req.user
 			});
-		}
+		}*/
 		var zerorpc = require("zerorpc");
 		var client = new zerorpc.Client();
 		client.connect("tcp://127.0.0.1:4242");
+		console.log('140');
 		client.invoke("hello", req.user.email, hackathon.id, async(err, response, more)=>{
+			console.log('142');
 			if(response){
+				console.log(response);
 				var emails = response;
 				pleasework = response; //global variable- save matching algorithmn result for visualization
 				if(emails.length >= 10){
@@ -154,10 +157,12 @@ exports.getHackathon = async(req,res, next) => {
 				}else{
 					emails.forEach((hacker) =>{
 						User.findOne({'_id': hacker[0]}, (err, user)=>{
+							console.log(user);
+							console.log(found);
 							if(err){throw err;}
 							toptenhackers.push(user);
 							found--;
-							if(found == 0){
+							if(found <= 0){
 								res.render('hackathon', {
 									title: hackathon.name, Hackathon: hackathon, result: toptenhackers, currentHacker: req.user
 								});
