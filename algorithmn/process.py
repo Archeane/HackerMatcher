@@ -82,8 +82,9 @@ def calculateallscores(currentHacker, allHackers):
 class HelloRPC(object):
     def hello(self, user, hackathon):
         return "hi"
+        
 
 
 s = zerorpc.Server(HelloRPC())
-s.bind("tcp://0.0.0.0:4242")
+s.bind("tcp://0.0.0.0:80")
 s.run()

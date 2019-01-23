@@ -136,7 +136,7 @@ exports.getHackathon = async(req,res, next) => {
 		}*/
 		var zerorpc = require("zerorpc");
 		var client = new zerorpc.Client();
-		client.connect("tcp://127.0.0.1:4242");
+		client.connect("tcp://127.0.0.1:80");
 		console.log('140');
 		client.invoke("hello", req.user.email, hackathon.id, async(err, response, more)=>{
 			console.log('142');
