@@ -66,12 +66,14 @@ if(result == false){
 	$('#zerohackers').hide();
 	$('#fillPrefMessage').hide();
 	$('#zeromatch').hide();
+	$('#serverError').hide();
 
 	$('#showVis').hide();
 	$('#changePrefMessage').show();
 
 }else if(result == -1){
 	$('#app').hide();
+	$('#serverError').hide();
 	$('#changePrefMessage').hide();
 	$('#fillPrefMessage').hide();
 	$('#zeromatch').hide();
@@ -79,19 +81,30 @@ if(result == false){
 	$('#zerohackers').show();
 }else if(result == 404){
 	$('#app').hide();
+	$('#serverError').show();
 	$('#changePrefMessage').hide();
 	$('#zerohackers').hide();
 	$('#zeromatch').hide();
 	$('#showVis').hide();
-	$('#fillPrefMessage').show();
+	$('#fillPrefMessage').hide();
 }else if(result == 500){
+	$('#serverError').hide();
 	$('#changePrefMessage').hide();
 	$('#zerohackers').hide();
 	$('#fillPrefMessage').hide();
 	$('#app').hide();
 	$('#showVis').hide();
 	$('#zeromatch').show();
+}else if(result == 302){
+	$('#app').hide();
+	$('#serverError').hide();
+	$('#changePrefMessage').hide();
+	$('#zerohackers').hide();
+	$('#zeromatch').hide();
+	$('#showVis').hide();
+	$('#fillPrefMessage').show();
 }else{
+	$('#serverError').hide();
 	$('#changePrefMessage').hide();
 	$('#zerohackers').hide();
 	$('#fillPrefMessage').hide();

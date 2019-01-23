@@ -122,7 +122,7 @@ exports.getHackathon = async(req,res, next) => {
 				req.user.preferences.technologies.length == 0 &&
 				req.user.preferences.fields.length == 0){
 		return res.render('hackathon', {
-			title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
+			title: hackathon.name, Hackathon: hackathon, result: 302, currentHacker: req.user
 		});
 	}else if(hackathon.hackers.length == 0 || (hackathon.hackers.length == 1 && hackathon.hackers.toString().includes(req.user._id.toString()))){
 		return res.render('hackathon', {
@@ -141,9 +141,13 @@ exports.getHackathon = async(req,res, next) => {
 		client.invoke("hello", req.user.email, hackathon.id, async(err, response, more)=>{
 			console.log('142');
 			if(response){
+				console.log('144');
 				console.log(response);
 			}else{
-				return res.status(404).send();
+				console.log('147');
+				return res.render('hackathon', {
+					title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
+				});
 			}
 			/*if(response){
 				console.log(response);
