@@ -137,16 +137,21 @@ exports.getHackathon = async(req,res, next) => {
 				title: hackathon.name, Hackathon: hackathon, result: hackathon.hackers, currentHacker: req.user
 			});
 		}*/
-
+		console.log('140');
 		var process = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
 		var processedData = false;
 		process.stdout.on('data', function(data){
+			console.log('144');
 			processedData = data.toString();
+			console.log(processedData);
 		});
 
 		process.stdout.on('end', function(){
+			console.log('148');
+			console.log(processedData);
 			if(processedData != false){
 				var arr = eval("["+processedData+"]")[0];
+				console.log(ar);
 				pleasework = arr;
 				if(arr.length > 0){
 					if(arr.length >= 10){
@@ -154,8 +159,11 @@ exports.getHackathon = async(req,res, next) => {
 					}
 					var toptenhackers = [];
 					var found = arr.length-1;
+					console.log('162');
 					arr.forEach((hacker) =>{
+						console.log(hacker[0]);
 						User.findOne({'_id': hacker[0]}, (err, user)=>{
+							console.log(user);
 							if(err){throw err;}
 							toptenhackers.push(user);
 							found--;
@@ -167,12 +175,14 @@ exports.getHackathon = async(req,res, next) => {
 						});
 					}); //end of foreach
 				}else{
+					console.log('178');
 					pleasework = -1;
 					res.render('hackathon', {
 						title: hackathon.name, Hackathon: hackathon, result: 500, currentHacker: req.user
 					});
 				}
 			}else{
+				console.log('185');
 				return res.render('hackathon', {
 					title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
 				});
