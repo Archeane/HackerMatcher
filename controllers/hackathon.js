@@ -142,6 +142,11 @@ exports.getHackathon = async(req,res, next) => {
 			console.log('142');
 			if(response){
 				console.log(response);
+			}else{
+				return res.status(404).send();
+			}
+			/*if(response){
+				console.log(response);
 				var emails = response;
 				pleasework = response; //global variable- save matching algorithmn result for visualization
 				if(emails.length >= 10){
@@ -171,8 +176,8 @@ exports.getHackathon = async(req,res, next) => {
 					}); //end of foreach
 				}
 			}else{
-				return res.status(404).send("Erro! Sorry, the server is experiencing problems right now. Please try again later.");	
-			}
+				return res.status(404).send("Error! Sorry, the server is experiencing problems right now. Please try again later.");	
+			}*/
 		});
 	}
 };
