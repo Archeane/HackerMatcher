@@ -117,7 +117,8 @@ let pleasework = false;
 exports.getHackathon = async(req,res, next) => {
 	let hackathon = await Hackathon.findOne({id: req.params.id});
 	//verify user has filled in carescores
-	/*if(req.user.careScores.interests == -1 && req.user.careScores.languages == -1 && req.user.careScores.technologies == -1 && req.user.careScores.fields == -1){
+/*
+	if(req.user.careScores.interests == -1 && req.user.careScores.languages == -1 && req.user.careScores.technologies == -1 && req.user.careScores.fields == -1){
 		return res.render('hackathon', {
 			title: hackathon.name, Hackathon: hackathon, result: false, currentHacker: req.user
 		});
@@ -136,64 +137,67 @@ exports.getHackathon = async(req,res, next) => {
 			return res.render('hackathon', {
 				title: hackathon.name, Hackathon: hackathon, result: hackathon.hackers, currentHacker: req.user
 			});
-		}*/
-		console.log('140');
-		var process = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
-		var processedData = false;
-		process.stdout._handle.setBlocking(true)
+		}
+*/
+	console.log('142');
+	
+	var pythonProcess = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
+	var processedData = false;
+	pythonProcess.stdout._handle.setBlocking(true)
 
-		process.stdout.on('data', function(data){
-			console.log('144');
-			processedData = data.toString();
-			console.log(processedData);
-		});
+	pythonProcess.stdout.on('data', function(data){
+		console.log('149');
+		processedData = data.toString();
+		console.log(processedData);
+	});
 
-		process.stdout.on('end', function(){
-			console.log('148');
-			console.log(processedData);
-			if(processedData != false){
-				var arr = eval("["+processedData+"]")[0];
-				console.log(arr);
-				pleasework = arr;
-				if(arr.length > 0){
-					if(arr.length >= 10){
-						arr = arr.slice(0, 10);
-					}
-					var toptenhackers = [];
-					var found = arr.length-1;
-					console.log('162');
-					arr.forEach((hacker) =>{
-						console.log(hacker[0]);
-						User.findOne({'_id': hacker[0]}, (err, user)=>{
-							console.log(user);
-							if(err){throw err;}
-							toptenhackers.push(user);
-							found--;
-							if(found <= 0){
-								res.render('hackathon', {
-									title: hackathon.name, Hackathon: hackathon, result: toptenhackers, currentHacker: req.user
-								});
-							}
-						});
-					}); //end of foreach
-				}else{
-					console.log('178');
-					pleasework = -1;
-					res.render('hackathon', {
-						title: hackathon.name, Hackathon: hackathon, result: 500, currentHacker: req.user
-					});
+	pythonProcess.stdout.on('end', function(){
+		console.log('155');
+		console.log(processedData);
+		if(processedData != false){
+			var arr = eval("["+processedData+"]")[0];
+			console.log(arr);
+			pleasework = arr;
+			if(arr.length > 0){
+				if(arr.length >= 10){
+					arr = arr.slice(0, 10);
 				}
+				var toptenhackers = [];
+				var found = arr.length-1;
+				console.log('167');
+				arr.forEach((hacker) =>{
+					console.log(hacker[0]);
+					User.findOne({'_id': hacker[0]}, (err, user)=>{
+						console.log(user);
+						if(err){throw err;}
+						toptenhackers.push(user);
+						found--;
+						if(found <= 0){
+							res.render('hackathon', {
+								title: hackathon.name, Hackathon: hackathon, result: toptenhackers, currentHacker: req.user
+							});
+						}
+					});
+				}); //end of foreach
 			}else{
-				console.log('185');
-				return res.render('hackathon', {
-					title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
+				console.log('183');
+				pleasework = -1;
+				res.render('hackathon', {
+					title: hackathon.name, Hackathon: hackathon, result: 500, currentHacker: req.user
 				});
 			}
-		});
-
-		/*var zerorpc = require("zerorpc");
+		}else{
+			console.log('190');
+			return res.render('hackathon', {
+				title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
+			});
+		}
+	});
+/*
+		var zerorpc = require("zerorpc");
 		var client = new zerorpc.Client();
-		client.connect("tcp://127.0.0.1:80");
+		var connectionPort = "tcp://127.0.0.1:"+process.env.PORT
+		client.connect("tcp://127.0.0.1:");
 		console.log('140');
 		client.invoke("hello", req.user.email, hackathon.id, async(err, response, more)=>{
 			console.log('142');
@@ -239,8 +243,8 @@ exports.getHackathon = async(req,res, next) => {
 			}else{
 				return res.status(404).send("Error! Sorry, the server is experiencing problems right now. Please try again later.");	
 			}
-		});*/
-	//}
+		});
+	//}*/
 };
 
 exports.getHackathonVisualization = (req, res, next) =>{

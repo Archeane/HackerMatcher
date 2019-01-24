@@ -85,6 +85,10 @@ def calculateallscores(currentHacker, allHackers):
 userEmail = sys.argv[1]
 hackathonId = sys.argv[2]
 
+print('hello')
+print(sys.argv)
+sys.stdout.flush()
+'''
 User = db['users'].find_one({'email': userEmail})
 Hackathon = db['hackathons'].find_one({'id': hackathonId})
 allHackersEmail = Hackathon['hackers']
@@ -97,7 +101,7 @@ for id in allHackersEmail:
 
 arr = calculateallscores(User, allHackers)
 print(arr)
-
+'''
 '''
 class HelloRPC(object):
     def hello(self, user, hackathon):
