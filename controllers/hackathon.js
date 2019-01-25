@@ -84,7 +84,7 @@ function createTestUsers(k){
 
 exports.createTestUsers = async(req, res, next) =>{
 	userArr = [];
-	for(let i = 1; i < 40; i++){
+	for(let i = 1; i < 30; i++){
 		var user = await createTestUsers(i);
 		userArr.push(user);
 	}
@@ -93,7 +93,7 @@ exports.createTestUsers = async(req, res, next) =>{
 		User.insertMany(userArr, {ordered:false});
 		var userArrEmails = [];
 		for(i = 0; i < userArr.length; i++){
-			userArrEmails.push(userArr[i].email);
+			userArrEmails.push(userArr[i]._id);
 		}
 	}catch(err){
 		//console.log(err);
@@ -104,11 +104,99 @@ exports.createTestUsers = async(req, res, next) =>{
 	if(hackathon == null){
 		throw new Error("The hackathon does not exist.");
 	}
-	hackathon.hackers = userArrEmails;
-	hackathon.save();
+	for(let email of userArrEmails){
+		hackathon.hackers.push(email);
+		await hackathon.save();
+	}
 };
 
 
+
+
+function calculateCareScores(hacker){
+	interestscore = hacker['careScores']['interests'];
+    langscore = hacker['careScores']['languages'];
+    techscore = hacker['careScores']['technologies'];
+    fieldscore = hacker['careScores']['fields'];
+    sum = interestscore + langscore + techscore + fieldscore;
+    carescores = {};
+    carescores['interests'] = interestscore/sum;
+    carescores['languages'] = langscore/sum;
+    carescores['technologies'] = techscore/sum;
+    carescores['fields'] = fieldscore/sum;
+    return carescores
+}
+
+function calculateCategoryScore(currentHacker, carescores, hacker, category){
+    var arr1 = currentHacker['preferences'][category];
+    var arr2 = hacker['preferences'][category];
+    multiplier = carescores[category];
+    if(arr1.length == 0 || arr2.length == 0){
+        return 0;
+    }
+    if(arr1[0] == null || arr1[0].length == 0 || arr1[0][0] == '' || arr1[0][1] == '' || arr2[0] == null || arr2[0].length == 0 || arr2[0][0] == '' || arr2[0][1] == ''){
+        return 0;
+    } 
+    var scoresum = 0;
+    for(i = 0; i < arr1.length; i++){
+        for(j=0; j < arr2.length; j++){
+            if(arr1[i][0] == arr2[j][0]){
+                scoresum += Math.min(arr1[i][1], arr2[j][1]);
+   			}
+        }
+    }
+    var scoresum = scoresum*multiplier;
+    return scoresum;
+}
+
+function calculateHackerScore(currentHacker, carescores, hacker){
+    var interestscore = 0;
+    var languagescore = 0;
+    var technologiesscore = 0;
+    var fieldsscore = 0;
+    if(currentHacker['preferences']['interests'].length != 0 || carescores['interests'] == 0){
+        interestscore = calculateCategoryScore(currentHacker, carescores, hacker, 'interests');
+    }
+    if(currentHacker['preferences']['languages'].length != 0 || carescores['languages'] == 0){
+        languagescore = calculateCategoryScore(currentHacker, carescores, hacker, 'languages');
+    }
+    if (currentHacker['preferences']['technologies'].length != 0 || carescores['technologies'] == 0){
+        technologiesscore = calculateCategoryScore(currentHacker, carescores, hacker, 'technologies');
+    }
+    if (currentHacker['preferences']['fields'].length != 0 || carescores['fields'] == 0){
+        fieldsscore = calculateCategoryScore(currentHacker, carescores, hacker, 'fields');
+    }
+    return interestscore + languagescore + technologiesscore + fieldsscore;
+}
+function caculateAllScores(User, allHackers){
+	var totalscores = [];
+	/*if(User.hasAttribute('careScores') && User.hasAttribute('preferences')){
+		return [];
+	}*/
+	var careScores = calculateCareScores(User);
+	for(var key in allHackers){
+		if(allHackers.hasOwnProperty(key)){
+			var similiarity = calculateHackerScore(User, careScores, allHackers[key]);
+			if(similiarity != 0){
+				var temp = [allHackers[key]._id.toString(), similiarity];
+				totalscores.push(temp);
+			}
+		}
+	}
+	totalscores = totalscores.sort((a,b)=>{
+		return b[1] - a[1];
+	});
+	/*for(i = 0; i < allHackers.length; i++){
+		var temp = allHackers[i];
+		var similiarity = calculateHackerScore(User, careScores, temp);
+		if(similiarity != 0){
+			temp = [temp._id.toString(), similiarity];
+			totalscores.push(temp);
+		}
+	}
+	*/
+	return totalscores;
+}
 let pleasework = false;
 
 //TODO:
@@ -117,7 +205,6 @@ let pleasework = false;
 exports.getHackathon = async(req,res, next) => {
 	let hackathon = await Hackathon.findOne({id: req.params.id});
 	//verify user has filled in carescores
-/*
 	if(req.user.careScores.interests == -1 && req.user.careScores.languages == -1 && req.user.careScores.technologies == -1 && req.user.careScores.fields == -1){
 		return res.render('hackathon', {
 			title: hackathon.name, Hackathon: hackathon, result: false, currentHacker: req.user
@@ -133,12 +220,55 @@ exports.getHackathon = async(req,res, next) => {
 			title: hackathon.name, Hackathon: hackathon, result: -1, currentHacker: req.user
 		});
 	}else{
-		/*if(hackathon.hackers.length == 2 && hackathon.hackers.toString().includes(req.user._id.toString())){
+	/*
+		if(hackathon.hackers.length == 2 && hackathon.hackers.toString().includes(req.user._id.toString())){
 			return res.render('hackathon', {
 				title: hackathon.name, Hackathon: hackathon, result: hackathon.hackers, currentHacker: req.user
 			});
 		}
-*/
+	*/
+	var allHackers = {};
+	for(let hacker of hackathon.hackers){
+		if(hacker._id.toString() != req.user._id.toString()){
+			let user = await User.findOne(hacker._id);
+			if(user != null){
+				allHackers[hacker._id] = user;
+			}
+		}
+	}
+	//console.log(allHackers);
+	var arr = caculateAllScores(req.user, allHackers);
+	if(arr){
+		pleasework = arr;
+		if(arr.length > 0){
+			if(arr.length >= 9){
+				arr = arr.slice(0, 9);
+			}
+			var toptenhackers = [];
+			for(let user of arr){
+				try{
+					let hacker = await User.findOne({'_id':user[0]});
+					toptenhackers.push(hacker);
+				}catch(err){console.log(err); continue;}
+			}
+			res.render('hackathon', {
+				title: hackathon.name, Hackathon: hackathon, result: toptenhackers, currentHacker: req.user
+			});
+		}else{
+			console.log('183');
+			pleasework = -1;
+			res.render('hackathon', {
+				title: hackathon.name, Hackathon: hackathon, result: 500, currentHacker: req.user
+			});
+		}
+	}else{
+		console.log('190');
+		return res.render('hackathon', {
+			title: hackathon.name, Hackathon: hackathon, result: 404, currentHacker: req.user
+		});
+	}
+}
+/*
 	console.log('142');
 	
 	var pythonProcess = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
@@ -193,7 +323,8 @@ exports.getHackathon = async(req,res, next) => {
 			});
 		}
 	});
-/*
+*/
+	/*
 		var zerorpc = require("zerorpc");
 		var client = new zerorpc.Client();
 		var connectionPort = "tcp://127.0.0.1:"+process.env.PORT
@@ -244,12 +375,59 @@ exports.getHackathon = async(req,res, next) => {
 				return res.status(404).send("Error! Sorry, the server is experiencing problems right now. Please try again later.");	
 			}
 		});
-	//}*/
+	}*/
 };
 
-exports.getHackathonVisualization = (req, res, next) =>{
+
+
+exports.getHackathonVisualization = async(req, res, next) =>{
+	var minifiedUsers = [];
+
 	if(pleasework == false){
-		Hackathon.findOne({id:req.params.id}, (err, hackathon)=>{
+		try{
+			let hackathon = await Hackathon.findOne({id: req.params.id});
+			var allHackers = {};
+			for(let hacker of hackathon.hackers){
+				if(hacker._id.toString() != req.user._id.toString()){
+					let user = await User.findOne(hacker._id);
+					if(user != null){
+						allHackers[hacker._id] = user;
+					}
+				}
+			}
+			//console.log(allHackers);
+			var arr = caculateAllScores(req.user, allHackers);
+			if(arr){
+				pleasework = arr;
+				if(arr.length > 0){
+					for(let hacker of arr){
+						try{
+							let data = await User.findOne({'_id':hacker[0]});
+							var user = JSON.stringify({
+								"id": data._id,
+								"email":data.email,
+								"numOfHackathons":data.numOfHackathons,
+								"name": data.profile.name,
+								"profileurl": data.profile.picture,
+								"school":data.profile.school,
+								"major":data.profile.major,
+								"graduationYear":data.profile.graduationYear,
+								"educationLevel":data.profile.educationLevel,
+								"score": hacker[1]
+							});
+							minifiedUsers.push(user);
+						}catch(err){continue;}
+					}
+				}
+			}
+		}catch(err){
+			res.send("Server Error, cannot display visualization at this moment. Please try again later.");
+			return next(err);
+		}
+
+		//run matching algorithmn
+		
+		/*Hackathon.findOne({id:req.params.id}, (err, hackathon)=>{
 			if(err){return next(err);}
 			var process = spawn('python', ["./algorithmn/process.py", req.user.email, hackathon.id]);
 			var processedData = false;
@@ -304,7 +482,7 @@ exports.getHackathonVisualization = (req, res, next) =>{
 				}
 			});
 
-			/*var zerorpc = require("zerorpc");
+			var zerorpc = require("zerorpc");
 
 			var client = new zerorpc.Client();
 			client.connect("tcp://127.0.0.1:4242");
@@ -389,11 +567,38 @@ exports.getHackathonVisualization = (req, res, next) =>{
 					return next(err);
 					});
 				}
-			});*/
+			});
 			
-		});
+		});*/
 	}else if(pleasework == -1){
-		Hackathon.findOne({id:req.params.id}, (err, hackathon)=>{
+		try{
+			let hackathon = await Hackathon.findOne({id: req.params.id});
+		}catch(err){
+			res.send("Server Error, cannot display visualization at this moment. Please try again later.");
+			return next(err);
+		}
+		var allHackers = hackathon.hackers;
+		var minifiedUsers = [];
+		for(let hacker of allHackers){
+			try{
+				let data = await User.findOne({'_id':hacker[0]});
+				var user = JSON.stringify({
+					"id": data._id,
+					"email":data.email,
+					"numOfHackathons":data.numOfHackathons,
+					"name": data.profile.name,
+					"profileurl": data.profile.picture,
+					"school":data.profile.school,
+					"major":data.profile.major,
+					"graduationYear":data.profile.graduationYear,
+					"educationLevel":data.profile.educationLevel,
+					"score": hacker[1]
+				});
+				minifiedUsers.push(user);
+			}catch(err){continue;}
+		}
+
+		/*Hackathon.findOne({id:req.params.id}, (err, hackathon)=>{
 			if(err){
 				req.flash('error',{msg:"Hackathon is not found"});
 				return next(err);
@@ -433,26 +638,46 @@ exports.getHackathonVisualization = (req, res, next) =>{
 			}, function(err){
 			return next(err);
 			});
-		});
+		});*/
 	}else{
 		var topfiftyhackers = pleasework;
 		var minifiedUsers = [];
-		new Promise(async(resolve, reject) => {
+		for(let hacker of topfiftyhackers){
+			try{
+				let data = await User.findOne({'_id':hacker[0]});
+				var user = JSON.stringify({
+					"id": data._id,
+					"email":data.email,
+					"numOfHackathons":data.numOfHackathons,
+					"name": data.profile.name,
+					"profileurl": data.profile.picture,
+					"school":data.profile.school,
+					"major":data.profile.major,
+					"graduationYear":data.profile.graduationYear,
+					"educationLevel":data.profile.educationLevel,
+					"score": hacker[1]
+				});
+				minifiedUsers.push(user);
+			}catch(err){continue;}
+		}
+	}
+	console.log('658');
+	if(minifiedUsers && minifiedUsers.length > 0){
+		console.log('659');
+		res.render('visualization', {
+			title:'Visualization', matches: minifiedUsers
+		});
+	}else{
+		console.log('664');
+		res.render('visualization', {
+			title:'Visualization', matches: false
+		});
+	}
+		/*new Promise(async(resolve, reject) => {
 				for(let hacker of topfiftyhackers){
 					try{
 						let data = await User.findOne({'_id':hacker[0]});
-						var user = JSON.stringify({
-							"id": data._id,
-							"email":data.email,
-							"numOfHackathons":data.numOfHackathons,
-							"name": data.profile.name,
-							"profileurl": data.profile.picture,
-							"school":data.profile.school,
-							"major":data.profile.major,
-							"graduationYear":data.profile.graduationYear,
-							"educationLevel":data.profile.educationLevel,
-							"score": hacker[1]
-						});
+						var user = createdVisualizationUser(data);
 						//console.log(user);
 						minifiedUsers.push(user);
 					}catch(err){continue;}
@@ -472,11 +697,7 @@ exports.getHackathonVisualization = (req, res, next) =>{
 			}
 		}, function(err){
 			return next(err);
-		});
-	}
-	
-
-
+		});*/
 };
 
 exports.postAttend = async (req, res, next) =>{
@@ -498,4 +719,3 @@ exports.postAttend = async (req, res, next) =>{
 		return res.status(500).send("Sorry, you must be logged in to perform this request");
 	}
 }
-

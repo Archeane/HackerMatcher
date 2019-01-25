@@ -519,7 +519,10 @@ exports.postUpdateDashboard = (req, res, next) => {
     }
     user.socialmedia.website = req.body.website || '';
 
-    
+     var updates = req.body;
+      const preferences = extractPreferencesArray();
+      const mapping = ["interests", "languages", "technologies", "fields"];
+      var updatedresults = [[],[],[],[]];
     for (var key in updates){
       if(updates.hasOwnProperty(key)){ //looping through req.body
         //if it's a similiarity score
