@@ -12,7 +12,7 @@ var setCSRFToken = function (securityToken) {
 };
 $.ajax({
 	type:"POST",
-	url:"http://localhost:8080/chat",
+	url:"https://pure-sea-97343.herokuapp.com/chat/",
 	success: function(data){
 		//console.log(data);
 		if(typeof data ==='object'){
