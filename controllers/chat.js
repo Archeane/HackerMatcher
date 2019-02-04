@@ -41,65 +41,57 @@ exports.getConversations = async function(req, res, next){
   }catch(err){return next(err);}
 }
 
-exports.getConversation = function(req, res, next) { 
+exports.getConversation = async(req, res, next)=> { 
   //populating the conversation with clients
-  Conversation.findOne({"_id":req.params.conversationID}, (err, conversation) =>{
-    if(err){return next(err);}
+  try{
+    var conversation = await Conversation.findOne({"_id":req.params.conversationID});
     if(!conversation){
       return res.status(404).send("Error! Page not found");
     }
     var participants = conversation.participants;
     //validate current user is one of the partcipants
     var validated = false;
-    if(req.user){
-      for(var i = 0; i < participants.length; i++){
-        if(participants[i] == req.user._id.toString()){
-          validated = true;
+    for(var i = 0; i < participants.length; i++){
+      if(participants[i] == req.user._id.toString()){
+        validated = true;
 
-          //get all participants information except current user
-          var length = participants.length;
-          var participantsInfo = [];
-          participants.forEach((partcipant)=>{
-            User.findOne(partcipant, (err, user)=>{
-              if(err){
-                req.flash('error', {msg:"An error occured with the server. Please try again later"})
-                return next(err);
-              }
-              length--;
-              if(user && user._id.toString() != req.user._id.toString()){ //exclude logged in user from participants array
-                var participantInfo = [];
-                participantInfo.push(user._id);
-                participantInfo.push(user.name || "");
-                participantInfo.push(user.profile.picture || "");
-                participantsInfo.push(participantInfo);
-              }
-              if(length == 0){
-                //populating the conversation with messages
-                Message.find({ "conversationId":req.params.conversationID})
-                  .select('createdAt body author')
-                  .sort('createdAt')
-                  .exec(function(err, messages) {
-                    if (err) {
-                      res.send({ error: err });
-                      return next(err);
-                    }
-                    res.render('chat', {messages: messages, participants: participantsInfo, currentUser: req.user});
-                    //res.status(200).json({ conversation: messages });
-                  });
-              }
-            }); 
-          }); //end of foreach
+        //get all participants information except current user
+        var participantsInfo = [];
+        for(let partcipant of participants){
+          try{
+            let user = await User.findOne(partcipant);
+            if(user && user._id.toString() != req.user._id.toString()){ //exclude logged in user from participants array
+              var participantInfo = [];
+              participantInfo.push(user._id);
+              participantInfo.push(user.name || "");
+              participantInfo.push(user.profile.picture || "");
+              participantsInfo.push(participantInfo);
+            }
+          }catch(err){continue;}
         }
-      }//end of for
-      //current user is not one of the particpants of the conversation
-    }//end of if(req.user)
+        Message.find({ "conversationId":req.params.conversationID})
+          .select('createdAt body author')
+          .sort('createdAt')
+          .exec(function(err, messages) {
+            if (err) {
+              res.send({ error: err });
+              return next(err);
+            }
+            res.render('chat', {messages: messages, participants: participantsInfo, currentUser: req.user});
+            //res.status(200).json({ conversation: messages });
+          });
+      }//end of if
+    }//end of for
     if(!validated){
       res.status(400).json({error: "ERROR! You do not have permission to access this conversation!"});
     }//end of if(!validated)
 
-  });//end of Conversation.findOne
+  }catch(error){
+    res.send("There is an error with the server, please try again later");
+    return next(error);
+  }
 
-}
+};
 
 
 /**

@@ -12,7 +12,7 @@ $('#school').text(User.profile.school || '');
 $('#major').text(User.profile.major || '');
 $('#gradYear').text(User.profile.graduationYear || '');
 $('#eduLevel').text(User.profile.educationLevel || '');
-$('#numOfHacks').text(User.numOfHackathons || '');
+$('#numOfHacks').text(User.numOfHackathons || '0');
 $('#aboutMe').text(User.profile.about || '');
 
 var socialmedias = []

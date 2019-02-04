@@ -9,5 +9,14 @@
 	{ "id": 8, "name": "Graphics" },
 	{ "id": 9, "name": "Human-Computer Interaction"},
 	{ "id": 10, "name": "Gaming"},
-	{ "id": 11, "name": "Data Visulization"}
+	{ "id": 11, "name": "Data Visulization"},
+	{"id": 12, "name": "AR/VR"},
+	{"id": 13, "name":"UI/UX design"},
+	{"id": 14, "name": "Data Science"},
+	{"id": 15, "name": "iOS Development"},
+	{"id": 16, "name": "Android Development"},
+	{"id": 17, "name": "Web Development (Frontend)"},
+	{"id": 18, "name": "Web Development (Backend)"},
+	{"id": 19, "name": "Fullstack Development"}
+
 ]

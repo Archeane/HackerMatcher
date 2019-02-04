@@ -38,16 +38,17 @@ $('#attendHackathonButton').on('click', (event)=>{
 		type:"POST",
 		url:window.location.href+"/attend",
 		success: (data)=>{
-			console.log(data);
+			//console.log(data);
 			$('#successResponse').text(data);
 			$('#successResponse').show();
 		},
 		error: (jqXHR, textStatus, err)=>{
-			console.log(jqXHR.status);
-			console.log(err);
+			//console.log(jqXHR.status);
+			//console.log(err);
 			$('#errorResponse').text(data);
 			$('#errorResponse').show()
-		}
+		},
+		
 	});
 });
 

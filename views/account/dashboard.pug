@@ -9,8 +9,8 @@ block append head
   script(src="/js/dashboard.js")
 
 block content
-  .pb-2.mt-2.mb-4.border-bottom#topwrapper
-    <button type="button" id="editProfile"><i class='fas fa-cog'></i>Edit Profile</button>
+  .pb-2.mt-2.mb-4#topwrapper
+    <button type="button" class="btn btn-secondary" id="editProfile"><i class='fas fa-cog'></i>Edit Profile</button>
 
   form(action='/account/picture?_csrf='+_csrf, method='POST', enctype='multipart/form-data', id="profileImgForm")
     div.col-lg-12#pfp-container

@@ -4,14 +4,15 @@
 	{ "id": 3, "name": "Education" },
 	{ "id": 4, "name": "Environment" },
 	{ "id": 5, "name": "Science" },
-	{ "id": 6, "name": "Sociology" },
+	{ "id": 6, "name": "Social networking" },
 	{ "id": 7, "name": "Astronomy" },
 	{ "id": 8, "name": "Human Assistance" },
 	{ "id": 11, "name": "Music"},
 	{ "id": 12, "name": "Art"},
 	{ "id": 13, "name": "Helping Developing Countries"},
 	{ "id": 14, "name": "Cars"},
-	{ "id": 15, "name": "Linguistics"},
+	{ "id": 15, "name": "Environmental"},
 	{ "id": 16, "name": "Sports"},
-	{ "id": 18, "name": "Convenience"}
+	{ "id": 18, "name": "Social conflicts"},
+	{"id": 19, "name": "Disaster Relief"}
 ]

@@ -10,8 +10,11 @@
 	{ "id": 11, "name": "CSS"},
 	{ "id": 12, "name": "iOS"},
 	{ "id": 13, "name": "Swift"},
-	{ "id": 14, "name": "Ruby"},
-	{ "id": 15, "name": "mysql"},
+	{ "id": 14, "name": "Ruby On Rails"},
+	{ "id": 15, "name": "SQL"},
 	{ "id": 16, "name": "C"},
-	{ "id": 17, "name": "C++"}
+	{ "id": 17, "name": "C++"},
+	{"id": 18, "name": "Go"},
+	{"id": 19, "name":"Objective-C"}
+	{"id": 20, "name":"I've never coded before!"}
 ]

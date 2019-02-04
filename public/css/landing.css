@@ -42,7 +42,9 @@ body{
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"]
+ {
   display: block;
   box-sizing: border-box;
   padding-bottom: 25px;
@@ -57,8 +59,19 @@ input[type="password"] {
   margin: 0 auto;
 }
 
+#email, #password{
+  margin-right: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+#login{
+  margin-top:20px;
+  height: 40px;
+}
+
 input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus, 
+input[type="email"]:focus{
   border-bottom: 2px solid #16a085;
   color: #16a085;
   transition: 0.2s ease;
