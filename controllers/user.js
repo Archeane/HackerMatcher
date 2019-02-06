@@ -22,11 +22,13 @@ fs.writeFileSync(gTokenPath , process.env.GCS_JSON_TOKEN);
 
 //const gcsKeyFile = JSON.parse(process.env.GCS_JSON_TOKEN);
 
-
+//const {auth} = require('google-auth-library');
 const { Storage } = require('@google-cloud/storage');
+
 var storage = new Storage({
   projectId: process.env.GOOGLE_CLOUD_STORAGE_PROJECT_ID,
-  credentials:{
+
+  /*credentials:{
     "type": "service_account",
   "project_id": process.env.GOOGLE_CLOUD_STORAGE_PROJECT_ID,
   "private_key_id": process.env.GOOGLE_CLOUD_STORAGE_PRIVATE_KEY_ID,
@@ -38,12 +40,13 @@ var storage = new Storage({
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": process.env.GOOGLE_CLOUD_CLIENT_X509_CERT_URL
 
-  }
-  //keyFilename: gTokenPath
-  //keyFilename: process.env.GOOGLE_CLOUD_STORAGE_KEYFILE_NAME
-  //keyFile: JSON.parse(process.env.GOOGLE_APPLICATION)
+  }*/
+  //keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+  credentials: JSON.parse(process.env.GOOGLE_CLOUD_STORAGE_KEYFILESTRING)
+  
 });
 var myBucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -132,7 +135,6 @@ exports.postSignup = (req, res, next) => {
     if (existingUser) {
       /*req.flash('errors', { msg: 'Account with that email address already exists.' });
       return res.redirect('/signup');*/
-      console.log('135');
       //req.flash('errors', { msg: '' });
       req.flash('errors', { msg: 'Thre is an error with your information' });
       req.flash('success', { msg: 'Account with that email address already exists. Please log in' });
@@ -164,12 +166,10 @@ exports.postSignup = (req, res, next) => {
         });
         
         res.send('We have sent a verification link to your email. Please activate your account.');*/
-        console.log('156');
         req.logIn(user, (err) => {
           if (err) {
             return next(err);
           }
-          console.log('161');
           res.redirect('/register');
         });
     });
@@ -226,7 +226,10 @@ function uploadImgToGcloud(file){
           custom: 'metadata'
         }
       }
-  })).on('error', function(err) {throw err;})
+  })).on('error', function(err) {
+    console.log(err);
+    throw err;
+  })
   .on('finish', function() {
     myBucket.file(gcsname).makePublic().then(() =>{
       //console.log('upload to gcloud success!', getPublicUrl(gcsname));
@@ -255,7 +258,7 @@ exports.postProfilePicture = (req, res,next)=>{
           if(err){return next(err);}
           //TODO: Inform the user pfp is not saved but other information is saved
           req.flash('errors', {msg: 'An error has occured with the server. Your profile image was not saved, but your other information has been saved.'});
-          return res.redirect('/home');
+          //res.redirect('/home');
         });
         next(err);
       })
