@@ -306,6 +306,6 @@ input[type=checkbox]:checked + .check-box::before,
 
 
 #vis{
-  margin-left:-6em !important;
+  margin-left:-14em !important;
   margin-top: -20em !important;
 }

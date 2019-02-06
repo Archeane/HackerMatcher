@@ -18,15 +18,12 @@ hr
     align-items: center;
 }
 
-html {
-    height: 100%;
-}
+
 
 body {
     width: 100%;
     min-height: 100%;
     font-size: 16px;
-    overflow: hidden;
     margin: 0;
 }
 
