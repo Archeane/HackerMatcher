@@ -14,7 +14,7 @@ $('#editProfile').on('click', (event)=>{
 
 //----------------------about content-----------------------
 $('#pfp').attr('src', User.profile.picture);
-$('#name').text(User.profile.name || '');
+$('#name').text(User.name || '');
 $('#gender').text(User.profile.gender || '');
 $('#school').text(User.profile.school || '');
 $('#major').text(User.profile.major || '');
@@ -210,6 +210,9 @@ app = new Vue({
 	}
 });
 
+$('#app > input').keypress(function(e) {
+    e.preventDefault();
+});
 
 /**
  *================================ABOUT===================================== 

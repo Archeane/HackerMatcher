@@ -1,4 +1,4 @@
-console.log(User);
+//console.log(User);
 
 //TODO: handle when there is no preferences. dont show it on the front it.
 
@@ -6,7 +6,7 @@ $('#startChat').attr('action', '/new/'+User._id);
 
 //----------------------about-----------------------
 $('#pfp').attr('src', User.profile.picture);
-$('#name').text(User.profile.name || '');
+$('#name').text(User.name || '');
 $('#gender').text(User.profile.gender || '');
 $('#school').text(User.profile.school || '');
 $('#major').text(User.profile.major || '');
