@@ -199,13 +199,13 @@ app.post('/new/:recipient', chatController.newConversation);       //start a new
  */
 app.get('/', homeController.landing);
 app.get('/home', passportConfig.isAuthenticated, homeController.index);
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
+//app.get('/login', userController.getLogin);
+//app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
-app.get('/forgot', userController.getForgot);
-app.post('/forgot', userController.postForgot);
-app.get('/reset/:token', userController.getReset);
-app.post('/reset/:token', userController.postReset);
+//app.get('/forgot', userController.getForgot);
+//app.post('/forgot', userController.postForgot);
+//app.get('/reset/:token', userController.getReset);
+//app.post('/reset/:token', userController.postReset);
 //app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/verifyemail', userController.getVerifyEmail)
@@ -214,8 +214,8 @@ app.post('/account', passportConfig.isAuthenticated, upload.single('myFile'), us
 app.get('/preferences', passportConfig.isAuthenticated, userController.getPreferences);
 app.post('/preferences', passportConfig.isAuthenticated, userController.postPreferences);
 
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
+//app.get('/contact', contactController.getContact);
+//app.post('/contact', contactController.postContact);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
