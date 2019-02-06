@@ -46,7 +46,7 @@ if(User.numOfHackathons){
 var socialmedias = []
 for (var key in User.socialmedia){
 	if(User.socialmedia.hasOwnProperty(key)){
-		if(User.socialmedia[key] == '' || key.toLowerCase() == 'tokens'){
+		if(User.socialmedia[key].toString() == '' || key.toLowerCase() == 'tokens'){
 			continue;
 		}else{
 			var temp = [];

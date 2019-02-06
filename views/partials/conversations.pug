@@ -3,7 +3,7 @@
     <li v-for="conversation in allConversations" class="chat-item" >
         <a v-bind:href="'https://hackersmatcher.herokuapp.com/chat/'+conversation[0]">
         //<a v-bind:href="'http://localhost:8080/chat/'+conversation[0]">
-        <img v-bind:src="conversation[1]" class="chat-heads" v-bind:id="conversation[0]"></a>
+        <img v-bind:src="conversation[1]" class="chat-heads" v-bind:id="conversation[0]" data-toggle="tooltip" data-placement="right"></a>
     </li class="chat-item">
   
   

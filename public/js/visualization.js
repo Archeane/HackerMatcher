@@ -141,7 +141,7 @@ function bubbleChart() {
 	  	  return 'url(#'+d.email+')';			//get the image in defs patterns, which has ids=d.email
 	  })
 	  .on('click', function(d){
-	  	window.location = window.location.origin + "/users/"+d._id;	//TODO: REPLACE EMAIL WITH URLID?
+	  	window.location = window.location.origin + "/users/"+d.email;	//TODO: REPLACE EMAIL WITH URLID?
 	  })
 
 	bubbles.transition()

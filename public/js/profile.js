@@ -30,7 +30,9 @@ $('#aboutMe').text(User.profile.about || '');
 var socialmedias = []
 for (var key in User.socialmedia){
 	if(User.socialmedia.hasOwnProperty(key)){
-		if(User.socialmedia[key] != '' || key.toLowerCase() != 'tokens'){
+		if(User.socialmedia[key] == '' || key.toLowerCase() == 'tokens'){
+			continue;
+		}else{
 			var temp = [];
 			temp.push(key);
 			temp.push(User.socialmedia[key]);

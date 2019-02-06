@@ -54,7 +54,7 @@ block content
         <div id = "app">
           <div class="row" style="padding-top: 2em; padding-bottom:2em">
             .col-md-auto
-            <div class="col-md-auto hacker" v-for="(hacker, index) in hackers">
+            <div class="col-md-1 hacker" style="margin-left: 20px;" v-for="(hacker, index) in hackers">
               <div class="img__wrap">
                 //picture
                 <a v-bind:href="'/users/'+hacker[0].email">
