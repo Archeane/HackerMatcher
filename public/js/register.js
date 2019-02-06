@@ -40,13 +40,11 @@ $(document).ready(() =>{
 		url: '/assets/languages.json' // wherever your data is actually coming from
 	});
 	$lanrequest.then(function (data) {
-		console.log(data);
 		for (var d = 0; d < data.length; d++) {
 			var item = data[d];
 			var option = new Option(item.name, item.name, false, false);
 			$lanelement.append(option);
 		}
-		console.log($lanelement);
 		$lanelement.trigger('change');
 	});
 
@@ -118,7 +116,7 @@ var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
 $(".next").click(function(){
-	if($('#gender1').is(':checked') || $('#gender2').is(':checked') || $('#gender3').is(':checked')){//check gender
+	/*if($('#gender1').is(':checked') || $('#gender2').is(':checked') || $('#gender3').is(':checked')){//check gender
 		if($('#school').val() && $('#major').val() && $('#gradYear').val() && $('#eduLevel').val() && $('#numOfHackathons').val()){
 			validated = true;
 		}else{
@@ -129,7 +127,7 @@ $(".next").click(function(){
 	}		
 	if(!validated){
 		$('#error').show();
-	}else{
+	}else{*/
 		$('#error').hide();
 	
 		if(animating) return false;
@@ -167,7 +165,7 @@ $(".next").click(function(){
 			//this comes from the custom easing plugin
 			easing: 'easeInOutBack'
 		});
-	}//end of else
+	//}//end of else
 });
 
 $(".previous").click(function(){

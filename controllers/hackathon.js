@@ -211,7 +211,9 @@ exports.getHackathon = async(req,res, next) => {
 		});
 	}else if(req.user.preferences.languages.length == 0 &&
 				req.user.preferences.technologies.length == 0 &&
-				req.user.preferences.fields.length == 0){
+				req.user.preferences.fields.length == 0 && 
+				req.user.preferences.interests.length == 0){
+		//console.log(req.user.preferences);
 		return res.render('hackathon', {
 			title: hackathon.name, Hackathon: hackathon, result: 302, currentHacker: req.user
 		});

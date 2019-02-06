@@ -268,7 +268,7 @@ exports.postProfilePicture = (req, res,next)=>{
 
 
 //TODO: verify social media link
-exports.postRegister = (req, res) => {
+exports.postRegister = (req, res, next) => {
   User.findById(req.user.id, (err, user)=>{
     if (err){return next(err);}
     
@@ -422,7 +422,7 @@ exports.postRegister = (req, res) => {
           //TODO: Inform the user pfp is not saved but other information is saved
           req.flash('errors', {msg: 'An error has occured with the server. Your profile image was not saved, but your other information has been saved.'});
           res.redirect('/home');
-          return next(err);
+          //return next(err);
         });
       })
       .on('finish', function() {
@@ -607,7 +607,7 @@ exports.postPreferences = (req, res) => {
   var updatedresults = [[],[],[],[]];
   
   var updates = req.body;
-  console.log(updates);
+  //console.log(updates);
   User.findById(req.user.id, (err,user)=>{
     for (var key in updates){
       if(updates.hasOwnProperty(key)){ //looping through req.body
@@ -628,7 +628,7 @@ exports.postPreferences = (req, res) => {
               var temp = [];
               temp.push(key);
               temp.push(parseInt(updates[key]));
-              console.log(temp);
+              //console.log(temp);
               updatedresults[j].push(temp);
             }
           }
@@ -642,7 +642,7 @@ exports.postPreferences = (req, res) => {
     user.preferences.fields = updatedresults[3];
     user.save((err)=>{
       if(err){return next(err);}
-      console.log(user);
+      //console.log(user);
       res.redirect('/home');
     });
     

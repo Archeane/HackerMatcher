@@ -203,9 +203,9 @@ function bubbleChart() {
 	if(d.name){
 		content += '<div class="row"><div class="col-md-12"><span class="name">'+d.name+', </span>';
 	}
-	if(d.educationLevel){
+	/*if(d.educationLevel){
 		content += '<span class="educationLevel">'+d.educationLevel+'</span></div></div>';
-	}
+	}*/
 	if(d.school){
 		content += '<div class="row"><div class="col-md-12"><span class="school">'+d.school+'</span></div></div>';
 	}
@@ -247,8 +247,8 @@ function display(data, filters) {
   if(filters){
   	console.log(filters);
   	var filteredData = [];
-  	if(filters.major.length == 0 && filters.graduationYear.length == 0 && 
-  		filters.educationLevel.length == 0 && filters.numOfHackathons.length == 0){
+  	if(filters.major.length == 0 && filters.graduationYear.length == 0 && filters.numOfHackathons.length == 0){
+  		//filters.educationLevel.length == 0 && ){
   		myBubbleChart('#vis', data);
   	}else{
 	  	for(var key in data){
@@ -404,9 +404,9 @@ for(i = 0; i < MatchesJSON.length; i++){
 	if(!(allGradYears.includes(Math.floor(user.graduationYear)))){
 		allGradYears.push(Math.floor(user.graduationYear));
 	}
-	if(!(allEduLevels.includes(user.educationLevel))){
+	/*if(!(allEduLevels.includes(user.educationLevel))){
 		allEduLevels.push(user.educationLevel);
-	}
+	}*/
 	if(!(allNumOfHacks.includes(user.numOfHackathons))){
 		allNumOfHacks.push(user.numOfHackathons);
 	}
@@ -447,11 +447,11 @@ for(i = 0; i < allNumOfHacks.length; i++){
 	$('#numOfHackathons').append(container)
 	filters['numOfHackathons'].push(allNumOfHacks[i].toString());
 }
-for(i = 0; i < allEduLevels.length; i++){
+/*for(i = 0; i < allEduLevels.length; i++){
 	var option = createFilterBox(allEduLevels[i], 'educationLevel');
 	$('#educationLevel').append(option);
 	filters['educationLevel'].push(allEduLevels[i].toString());
-}
+}*/
 $('.major').prop('checked', true);
 $('.graduationYear').prop('checked', true);
 $('.educationLevel').prop('checked', true);
