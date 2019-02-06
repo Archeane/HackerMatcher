@@ -255,9 +255,9 @@ exports.postProfilePicture = (req, res,next)=>{
           if(err){return next(err);}
           //TODO: Inform the user pfp is not saved but other information is saved
           req.flash('errors', {msg: 'An error has occured with the server. Your profile image was not saved, but your other information has been saved.'});
-          res.redirect('/home');
+          return res.redirect('/home');
         });
-        return next(err);
+        next(err);
       })
       .on('finish', function() {
           myBucket.file(gcsname).makePublic().then(() =>{

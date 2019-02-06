@@ -57,6 +57,11 @@ app = new Vue({
 		languages:User.preferences.languages,
 		technologies:User.preferences.technologies,
 		fields: User.preferences.fields
+	},
+	filters:{
+		round: function(value){
+			return Math.ceil(value);
+		}
 	}
 });
 

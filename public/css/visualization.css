@@ -22,9 +22,9 @@ body {
 
 aside,
 section {
-  width: 275px;
+  width: 15em;
   border-right: 1px solid rgba(51, 51, 51, 0.3);
-  padding-right: 30px;
+  padding-right: 2em;
 }
 .sortBy {
   float: right;
@@ -302,4 +302,10 @@ input[type=checkbox]:checked + .check-box::before,
   height: 55px;
   z-index: 1;
   width:100%;
+}
+
+
+#vis{
+  margin-left:-6em !important;
+  margin-top: -20em !important;
 }

@@ -9,7 +9,8 @@ $('#logo').attr('src', Hackathon.logo);
 $('#name').text(Hackathon.name || "");
 $('#university').text(Hackathon.university || "");
 $('#location').text(Hackathon.city || "");
-$('<span>, '+Hackathon.state+'</span>').appendTo('#location')
+$('<span>, '+Hackathon.state+'</span>').appendTo('#location');
+$('#hackathon-description').text(Hackathon.about || "");
 
 var startDate = moment(Hackathon.startDate);
 var endDate = moment(Hackathon.endDate);
