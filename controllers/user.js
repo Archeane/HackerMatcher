@@ -106,17 +106,17 @@ exports.logout = (req, res) => {
 // 1. node mailer -> do verification step
 // 2. Add a default random profile image for the user
 exports.postSignup = (req, res, next) => {
-  req.assert('email', 'Email is not valid').isEmail();
+  /*req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 8 characters long').len(8);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);*/
   req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
-  const errors = req.validationErrors();
+  /*const errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/');
-  }
+  }*/
   const secretToken = randomstring.generate();
   var confirmurl = process.env.BASE_URL+'/verifyemail?token='+secretToken;
   const user = new User({
@@ -130,8 +130,21 @@ exports.postSignup = (req, res, next) => {
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
-      return res.redirect('/signup');
+      /*req.flash('errors', { msg: 'Account with that email address already exists.' });
+      return res.redirect('/signup');*/
+      console.log('135');
+      //req.flash('errors', { msg: '' });
+      req.flash('errors', { msg: 'Thre is an error with your information' });
+      req.flash('success', { msg: 'Account with that email address already exists. Please log in' });
+      return res.redirect('/');
+      //res.redirect('');
+      /*req.logIn(user, (err)=>{
+        if(err){
+          //res.send("There is an error processing your request. Please try again later");
+          return next(err);
+        }
+        res.redirect('/home');
+      })*/
     }
     //TODO: send email with verification code
     user.save((err) => {
@@ -151,10 +164,12 @@ exports.postSignup = (req, res, next) => {
         });
         
         res.send('We have sent a verification link to your email. Please activate your account.');*/
+        console.log('156');
         req.logIn(user, (err) => {
           if (err) {
             return next(err);
           }
+          console.log('161');
           res.redirect('/register');
         });
     });

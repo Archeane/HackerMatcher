@@ -1,10 +1,29 @@
 
 exports.index = async (req, res) => {
-  const Hackathon = require('../models/Hackathon');
-  var hackathons = await Hackathon.find();
-  res.render('home', {
-    title: 'Home', hackathons: hackathons
-  });
+  if(req.user){
+  	//console.log(req.user.profile);
+  	if(req.user.profile){
+  		if(req.user.profile.school == undefined || req.user.profile.school == null ||
+  			req.user.profile.gender == undefined || req.user.profile.gender == undefined || 
+  			req.user.profile.major == undefined || req.user.profile.major == undefined || 
+  			req.user.profile.graduationYear == undefined || req.user.profile.graduationYear == undefined || 
+  			req.user.profile.educationLevel == undefined || req.user.profile.educationLevel == undefined || 
+  			req.user.numOfHackathons == undefined || req.user.numOfHackathons == undefined){
+  			return res.redirect('/register');
+  			//return res.flash("error", {msg: "You did not complete the registration process!"});
+  		}
+  	}else{
+  		return res.redirect('/register');
+  		//return res.flash("error", {msg: "You did not complete the registration process!"});
+  	}
+	const Hackathon = require('../models/Hackathon');
+	var hackathons = await Hackathon.find();
+	res.render('home', {
+		title: 'Home', hackathons: hackathons
+	});
+  }else{
+  	return res.redirect('/');
+  }
 };
 
 exports.landing = (req, res) => {

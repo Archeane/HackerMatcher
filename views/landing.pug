@@ -15,7 +15,7 @@ block content
 			.form-group
 			input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
 			.form-group
-			input.form-control(type="text", name="email", id='reg-email',placeholder="Email",required)
+			input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
 			.form-group
 			input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
 			.form-group
@@ -35,3 +35,24 @@ block content
 	//img.background(src="https://thecampusconnect.com/wp-content/uploads/2018/06/features-image-12.jpg")
 	script.
 		$('#conversation-list-container').hide();
+		function isEmail(email) {
+			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			return regex.test(email);
+		}
+
+		$('#submitRegister').on('click', (e)=>{
+			e.preventDefault();
+			if($('#reg-password').val() != $('#reg-confirmpassword').val()){
+				$('#error').text("Your passwords do not match");
+				$('#error').show();
+			}else if($('#reg-password').val().length < 8){
+				$('#error').text("Please include 8 characters or more in your password");
+				$('#error').show();
+			}else if(!isEmail($('#reg-email').val())){
+				$('#error').text("Please enter a valid email");
+				$('#error').show();
+			}else{
+				$('#error').hide();
+				$('#signupForm').submit();
+			}
+		});

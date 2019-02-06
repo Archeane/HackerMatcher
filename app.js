@@ -199,8 +199,8 @@ app.post('/new/:recipient', chatController.newConversation);       //start a new
  */
 app.get('/', homeController.landing);
 app.get('/home', passportConfig.isAuthenticated, homeController.index);
-//app.get('/login', userController.getLogin);
-//app.post('/login', userController.postLogin);
+app.get('/login', userController.getLogin);
+app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
 //app.get('/forgot', userController.getForgot);
 //app.post('/forgot', userController.postForgot);
