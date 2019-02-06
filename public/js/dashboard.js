@@ -37,9 +37,9 @@ if(User.numOfHackathons){
 $('#aboutMe').text(User.profile.about || '');
 $('#aboutMeSettings').text(User.profile.about || '');
 if(User.numOfHackathons){
-	$('#numOfHackathonsSettings').attr('value', User.numOfHackathons);
+	$('#numOfHackathonsSettings').val(User.numOfHackathons.toString());
 }else{
-	$('#numOfHackathonsSettings').attr('value',0);
+	$('#numOfHackathonsSettings').val("0");
 }
 
 //--------------------social media------------------------
