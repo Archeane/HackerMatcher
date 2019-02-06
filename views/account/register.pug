@@ -46,7 +46,8 @@ block content
           .form-group.row
             label.col-md-3.col-form-label.font-weight-bold.text-right(for='school') School <span class="asterisk">&#42<span>
             .col-md-7
-              select(id="school", name="school", required)
+              input(id="school", name="school", type="text", style="height:30px; margin-top:10px;", placeholder="Please enter the insitution you attend", required)
+              //select(id="school", name="school", required)
                 <option value="">Please enter your current institution</option> 
           //Major
           .form-group.row
@@ -94,7 +95,9 @@ block content
           </div>
           <div>
             <label for="multiselect" style="padding-right: 10px;">Languages You Are Familiar With: </label>
-            <select v-model="languageSelect" id="reg-languages" class="multiselect" name="languages" multiple="multiple" style="width:100%;height: 30px;"></select>
+            <select v-model="languageSelect" id="reg-languages" class="multiselect" name="languages" multiple="multiple" style="width:100%;height: 30px;">
+              <option value="First time coding!"> First time coding! </option>
+            </select>
           </div>
           <div>
             <label for="multiselect" style="padding-right: 10px;">What Technologies Have You Used? </label>
@@ -114,20 +117,21 @@ block content
               img#img-upload(height='300;', width='300;')
           </div>
           <div style="padding-top:15px;">
-            <div class="row">
-              <div class="col-md-4">
-                <label>Website:</label>
-              </div>
-              <input class="pull-right" name="website" placeholder="Personal Website" />
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <label>Devpost:</label>
-              </div>
-              <input class="pull-right" name="devpost" placeholder="Devpost" />
-            </div>
+            
           </div>
           <div>
+            <div class="row">
+              <div class="col-md-3" style="margin-left: -12px;">
+                <label>Website:</label>
+              </div>
+              <input style="width:70%;" name="website" placeholder="Personal Website" />
+            </div>
+            <div class="row">
+              <div class="col-md-3" style="margin-left: -12px;">
+                <label>Devpost:</label>
+              </div>
+              <input style="width:70%;"name="devpost" placeholder="Devpost" />
+            </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Facebook:</label>

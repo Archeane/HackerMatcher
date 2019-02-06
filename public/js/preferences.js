@@ -65,20 +65,21 @@ var p4 = new Promise((res, rej) =>{
 
 //----------------prefill carescores--------------------
 if(User.hasOwnProperty('careScores')){
+	console.log(User.careScores);
 	if(User.careScores.interests != null){
-		var score = Math.round(User.careScores.interests/2);
+		var score = Math.round(User.careScores.interests);
 		$(":input[name=similiarinterersts][value="+score+"]").attr('checked', 'checked');;
 	}
 	if(User.careScores.languages != null){
-		var score = Math.round(User.careScores.languages/2);
+		var score = Math.round(User.careScores.languages);
 		$(":input[name=similiarlanguages][value="+score+"]").attr('checked', 'checked');;
 	}
 	if(User.careScores.technologies != null){
-		var score = Math.round(User.careScores.technologies/2);
+		var score = Math.round(User.careScores.technologies);
 		$(":input[name=similiartechnologies][value="+score+"]").attr('checked', 'checked');
 	}
 	if(User.careScores.fields != null){
-		var score = Math.round(User.careScores.fields/2);
+		var score = Math.round(User.careScores.fields);
 		$(":input[name=similiarfields][value="+score+"]").attr('checked', 'checked');
 	}
 }

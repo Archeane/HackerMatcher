@@ -12,7 +12,19 @@ $('#school').text(User.profile.school || '');
 $('#major').text(User.profile.major || '');
 $('#gradYear').text(User.profile.graduationYear || '');
 $('#eduLevel').text(User.profile.educationLevel || '');
-$('#numOfHacks').text(User.numOfHackathons || '0');
+$('#numOfHacks').text('0');
+if(User.numOfHackathons){
+	var numOfHackathonsTemp = User.numOfHackathons.toString();
+	if(numOfHackathonsTemp == "1"){
+		$('#numOfHacks').text("1");
+	}else if(numOfHackathonsTemp == "2"){
+		$('#numOfHacks').text("2-4");
+	}else if(numOfHackathonsTemp == "3"){
+		$('#numOfHacks').text("5-9");
+	}else if(numOfHackathonsTemp == "4"){
+		$('#numOfHacks').text("10+");
+	}
+}
 $('#aboutMe').text(User.profile.about || '');
 
 var socialmedias = []

@@ -285,7 +285,7 @@ exports.postRegister = (req, res) => {
 
     //--------------------preferences---------------------------
 
-    interests = req.body.interests;
+    var interests = req.body.interests;
     if(interests){ //verfiy if user choose anything
       if(interests instanceof Array){
         for(i=0;i<interests.length;i++){
@@ -299,21 +299,25 @@ exports.postRegister = (req, res) => {
     }
     user.preferences.interests=interests || [];
 
-    languages = req.body.languages;
+    var languages = req.body.languages;
     if(languages){
       if (languages instanceof Array){
-        for(i=0;i<languages.length;i++){
-          var temp = [languages[i], 5];
-          languages[i]=temp
+        if(languages.includes("First time coding!")){
+          languages = [];
+        }else{
+          for(i=0;i<languages.length;i++){
+            var temp = [languages[i], 5];
+            languages[i]=temp
+          }
         }
       }else{
         var temp=[languages,5];
         languages = [temp];
       }
     }
-    user.preferences.languages=languages || [];
+    user.preferences.languages = languages || [];
     
-    technologies = req.body.technologies;
+    var technologies = req.body.technologies;
     if(technologies){
       if (technologies instanceof Array){
         for(i=0;i<technologies.length;i++){
@@ -327,7 +331,7 @@ exports.postRegister = (req, res) => {
     }
     user.preferences.technologies=technologies || [];
     
-    fields = req.body.fields;
+    var fields = req.body.fields;
     if(fields){
       if (fields instanceof Array){
         for(i=0;i<fields.length;i++){
@@ -603,6 +607,7 @@ exports.postPreferences = (req, res) => {
   var updatedresults = [[],[],[],[]];
   
   var updates = req.body;
+  console.log(updates);
   User.findById(req.user.id, (err,user)=>{
     for (var key in updates){
       if(updates.hasOwnProperty(key)){ //looping through req.body
@@ -637,6 +642,7 @@ exports.postPreferences = (req, res) => {
     user.preferences.fields = updatedresults[3];
     user.save((err)=>{
       if(err){return next(err);}
+      console.log(user);
       res.redirect('/home');
     });
     

@@ -20,7 +20,20 @@ $('#school').text(User.profile.school || '');
 $('#major').text(User.profile.major || '');
 $('#gradYear').text(User.profile.graduationYear || '');
 $('#eduLevel').text(User.profile.educationLevel || '');
-$('#numOfHacks').text(User.numOfHackathons || '0');
+$('#numOfHacks').text('0');
+if(User.numOfHackathons){
+	var numOfHackathonsTemp = User.numOfHackathons.toString();
+	if(numOfHackathonsTemp == "1"){
+		$('#numOfHacks').text("1");
+	}else if(numOfHackathonsTemp == "2"){
+		$('#numOfHacks').text("2-4");
+	}else if(numOfHackathonsTemp == "3"){
+		$('#numOfHacks').text("5-9");
+	}else if(numOfHackathonsTemp == "4"){
+		$('#numOfHacks').text("10+");
+	}
+}
+
 $('#aboutMe').text(User.profile.about || '');
 $('#aboutMeSettings').text(User.profile.about || '');
 if(User.numOfHackathons){
@@ -29,6 +42,7 @@ if(User.numOfHackathons){
 	$('#numOfHackathonsSettings').attr('value',0);
 }
 
+//--------------------social media------------------------
 var socialmedias = []
 for (var key in User.socialmedia){
 	if(User.socialmedia.hasOwnProperty(key)){
@@ -49,6 +63,14 @@ socialmedia = new Vue({
 		socialmedias: socialmedias
 	}
 });
+//populate social media settings
+$('#website-s').val(User.socialmedia['website'] || "");
+$('#github-s').val(User.socialmedia['github'] || "");
+$('#devpost-s').val(User.socialmedia['devpost'] || "");
+$('#facebook-s').val(User.socialmedia['facebook'] || "");
+$('#instagram-s').val(User.socialmedia['instagram'] || "");
+$('#linkedin-s').val(User.socialmedia['linkedin'] || "");
+
 
 //-------------------preferences---------------------
 //If user does not have any preferences, set that field to []
@@ -232,9 +254,9 @@ $("#imgInp").change(function() {
 $('#gender-select').val(User.profile.gender);
 
 //populate schools select
-$.getJSON('/assets/colleges.json', (data) =>{
-	$('#school-select').select2({data: data});
-});
+// $.getJSON('/assets/colleges.json', (data) =>{
+// 	$('#school-select').select2({data: data});
+// });
 
 //Populate majors select
 $.getJSON('/assets/majors.json', (data) =>{

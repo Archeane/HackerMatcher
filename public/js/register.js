@@ -4,13 +4,9 @@ var validated = false;
 $(document).ready(() =>{
 
 	//Populate universities select
-	$.getJSON('/assets/colleges.json', (data) =>{
+	/*$.getJSON('/assets/colleges.json', (data) =>{
 		$('#school').select2({data: data});
-		/*for (i = 0; i < data.length; i++){
-			var option = new Option(data[i]['institution'], data[i]['institution'], false, false);
-			$('#school').append(option);
-		}*/
-	});
+	});*/
 
 	//Populate majors select
 	$.getJSON('/assets/majors.json', (data) =>{
@@ -44,11 +40,13 @@ $(document).ready(() =>{
 		url: '/assets/languages.json' // wherever your data is actually coming from
 	});
 	$lanrequest.then(function (data) {
+		console.log(data);
 		for (var d = 0; d < data.length; d++) {
 			var item = data[d];
 			var option = new Option(item.name, item.name, false, false);
 			$lanelement.append(option);
 		}
+		console.log($lanelement);
 		$lanelement.trigger('change');
 	});
 
