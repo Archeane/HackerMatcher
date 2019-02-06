@@ -480,5 +480,6 @@ display(MatchesJSON);
 
 $('#setFilters').on('click', ()=>{
 	$('#vis').empty();
+	$("html, body").animate({ scrollTop: 0 }, "slow");
 	display(MatchesJSON, filters);
 });

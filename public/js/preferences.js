@@ -65,7 +65,7 @@ var p4 = new Promise((res, rej) =>{
 
 //----------------prefill carescores--------------------
 if(User.hasOwnProperty('careScores')){
-	console.log(User.careScores);
+	//console.log(User.careScores);
 	if(User.careScores.interests != null){
 		var score = Math.round(User.careScores.interests);
 		$(":input[name=similiarinterersts][value="+score+"]").attr('checked', 'checked');;
@@ -168,6 +168,6 @@ var app = new Vue({
 });
 
 
-$('#app > input').keypress(function(e) {
-    e.preventDefault();
+$('#app :input').keypress(function(event) {
+    event.preventDefault();
 });

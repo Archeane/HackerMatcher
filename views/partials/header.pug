@@ -34,7 +34,7 @@
         li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
           a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
             img(src=user.profile.picture, id="headerPfp")
-            span= user.profile.name || user.email || user.id
+            span= user.name || user.email 
             i.caret
           ul.dropdown-menu
             li.dropdown-item
