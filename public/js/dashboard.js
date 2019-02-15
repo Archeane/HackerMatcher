@@ -210,9 +210,7 @@ app = new Vue({
 	}
 });
 
-$('#app > input').keypress(function(e) {
-    e.preventDefault();
-});
+
 
 /**
  *================================ABOUT===================================== 

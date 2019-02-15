@@ -14,7 +14,7 @@ setCSRFToken($('meta[name="csrf-token"]').attr('content'));
 $(document).ready(()=>{
 	$.ajax({
 		type:"POST",
-		url:"http://localhost:8080/chat/",
+		url:"http://hackersmatcher.herokuapp.com/chat/",
 		success: function(data){
 			//console.log(data);
 			if(typeof data ==='object'){
