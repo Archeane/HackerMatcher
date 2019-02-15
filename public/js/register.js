@@ -127,7 +127,7 @@ $(".next").click(function(){
 	}		
 	if(!validated){
 		$('#error').show();
-	}else{*/
+	}else{
 		$('#error').hide();
 	
 		if(animating) return false;
