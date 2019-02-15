@@ -414,7 +414,11 @@ exports.postRegister = (req, res, next) => {
       user.socialmedia.github = "";
     }
     user.socialmedia.website = req.body.website || '';
-    //user.socialmedia.phone = req.body.phone || '';
+    user.socialmedia.slack = req.body.slack || '';
+    user.socialmedia.whatsapp = req.body.whatsapp || '';
+    user.socialmedia.wechat = req.body.wechat || '';
+    user.socialmedia.groupme = req.body.groupme || '';
+    user.socialmedia.phone = req.body.phone || '';
     //---------------------care scores-----------------------------------
     user.careScores.interests = -1;
     user.careScores.languages = -1;
@@ -539,7 +543,13 @@ exports.postUpdateDashboard = (req, res, next) => {
         user.socialmedia.github = "http://www.github.com/"+req.body.github;
       }
     }
-    user.socialmedia.website = req.body.website || '';
+    user.socialmedia.website = req.body.website || user.socialmedia.website;
+    user.socialmedia.slack = req.body.slack || user.socialmedia.slack;
+    user.socialmedia.whatsapp = req.body.whatsapp || user.socialmedia.whatsapp;
+    user.socialmedia.wechat = req.body.wechat || user.socialmedia.wechat;
+    user.socialmedia.groupme = req.body.groupme || user.socialmedia.groupme;
+    user.socialmedia.phone = req.body.phone || user.socialmedia.phone;
+
 
      var updates = req.body;
       const preferences = extractPreferencesArray();

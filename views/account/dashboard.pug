@@ -62,15 +62,17 @@ block content
         .content#social-wrapper
           ul#social-menu
             <li class="social-items" v-for="(socialmedia, index) in socialmedias">
-              //<a v-if="socialmedia[0] == 'phone'" v-bind:value="socialmedia[1]" ><i class="fas fa-mobile fa-3x"></i></a>
               <a v-if="socialmedia[0] == 'devpost'" v-bind:href="socialmedia[1]"><img src="/assets/devpost.png" height=37 style="margin-top:-25px" /></a>
+              //<a v-if="socialmedia[0] == 'phone'" href="#" data-toggle="tooltip" data-placement="top" v-bind:title="socialmedia[1]"><i class="fas fa-mobile fa-3x"></i></a>
               <a v-if="socialmedia[0] == 'website'" v-bind:href="socialmedia[1]"><i class="fab fa-blogger fa-3x" ></i></a>
+              <a v-if="socialmedia[0] == 'slack' || socialmedia[0] == 'whatsapp' || socialmedia[0] == 'wechat'" href="#" data-toggle="tooltip" data-placement="top" v-bind:title="socialmedia[1]">
+                <i v-bind:class="[{'fab': true}, socialmedia[0] ? 'fa-' + socialmedia[0] : '', {'fa-3x': true}]"></i>
+              </a>
               <a v-else v-bind:href="socialmedia[1]"><i v-bind:class="[{'fab': true}, socialmedia[0] ? 'fa-' + socialmedia[0] : '', {'fa-3x': true}]"></i></a>
             </li>
         .settings.text-center#social-media-settings(style="padding: 20px")
           .row
-            .col-md-auto
-            .col-md-5
+            .col-md-4
               ul
                 li
                   label.pull-left Website
@@ -81,7 +83,7 @@ block content
                 li
                   label.pull-left Github
                   input.pull-right(name="github" id="github-s" placeholder="Enter your github username")
-            .col-md-5
+            .col-md-4
               ul
                 li
                   label.pull-left Facebook
@@ -92,8 +94,23 @@ block content
                 li
                   label.pull-left Linkedin
                   input.pull-right(name="linkedin" id="linkedin-s" placeholder="https://www.linkedin.com/your_name")
-                
-        
+                li
+                  label.pull-left Phone
+                  input.pull-right(name="phone" id="phone-s" placeholder="Enter your github username")
+            .col-md-4
+              ul
+                li
+                  label.pull-left Slack
+                  input.pull-right(name="slack" id="slack-s" placeholder="https://www.facebook.com/your_name")
+                li
+                  label.pull-left WhatsApp
+                  input.pull-right(name="whatsapp" id="whatsapp-s" placeholder="https://www.instagram.com/your_name")
+                li
+                  label.pull-left Groupme
+                  input.pull-right(name="groupme" id="groupme-s" placeholder="https://www.linkedin.com/your_name")
+                li
+                  label.pull-left WeChat
+                  input.pull-right(name="wechat" id="wechat-s" placeholder="Enter your github username")
       </div>
     </div>
     <div id="app">

@@ -24,7 +24,11 @@ const userSchema = new mongoose.Schema({
     linkedin: String,
     website: String,
     tokens: Array,
-    //phone: String,
+    phone: String,
+    slack: String,
+    whatsapp: String,
+    wechat: String,
+    groupme:String,
     devpost: String,
   },
 

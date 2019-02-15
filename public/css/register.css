@@ -74,9 +74,18 @@ body {
 }
 
 #msform select{
-    width: 350px !important;
-    margin-top: 20px;
+    margin-top: 10px;
+    height: 30px;
+    width: 70%;
 }
+
+#msform #fieldset1 label{
+    margin-top:10px;
+}
+#msform #fieldset1 .gender_label{
+    margin-top:0px !important;
+}
+
 
 /*buttons*/
 #msform .action-button {

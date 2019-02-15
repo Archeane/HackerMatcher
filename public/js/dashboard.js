@@ -70,6 +70,11 @@ $('#devpost-s').val(User.socialmedia['devpost'] || "");
 $('#facebook-s').val(User.socialmedia['facebook'] || "");
 $('#instagram-s').val(User.socialmedia['instagram'] || "");
 $('#linkedin-s').val(User.socialmedia['linkedin'] || "");
+$('#phone-s').val(User.socialmedia['phone'] || "");
+$('#slack-s').val(User.socialmedia['slack'] || "");
+$('#groupme-s').val(User.socialmedia['groupme'] || "");
+$('#wechat-s').val(User.socialmedia['wechat'] || "");
+$('#whatsapp-s').val(User.socialmedia['whatsapp'] || "");
 
 
 //-------------------preferences---------------------
