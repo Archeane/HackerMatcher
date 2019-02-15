@@ -284,5 +284,5 @@ $('#submitUpdateProfile').on('click', ()=>{
 });
 
 $('#app :input').keypress(function(event) {
-    event.preventDefault();
+//    event.preventDefault();
 });
