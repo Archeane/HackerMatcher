@@ -9,7 +9,7 @@ body {
     font-family: montserrat, arial, verdana;
 }
 
-@media(min-width: 576px){
+@media(min-width: 300px){
 #filters_no_show{
   display:none;
 }

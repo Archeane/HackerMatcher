@@ -23,11 +23,7 @@ body{
   min-height: 100%;
 }
 
-@media (min-width: 576px) {
-    
-}
-
-@media(min-width: 576px){
+@media(max-width: 576px){
   #about-box{
       display:none;
   }
@@ -38,6 +34,7 @@ body{
     position: fixed;
   }
 }
+
 
 @media(min-width: 1202px){
   
