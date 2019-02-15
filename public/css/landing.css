@@ -27,11 +27,25 @@ body{
   #about-box{
       display:none;
   }
+  #company_name{
+    display: none;
+  }
 
   #register-box {  
-    top: 40%;
-    right: 1%;
+    top: 28%;
+    right: 3%;
     position: fixed;
+    width: 300px;
+    height: 360px;
+    padding:0px;
+  }
+
+  #login{
+    width: 100px;
+  }
+  #title{
+    margin-top: 2% !important;
+    font-size:25px;
   }
 }
 
@@ -49,19 +63,25 @@ body{
     top: 25%;
     right: 10%;
     position: fixed;
+    width: 400px;
+    height: 450px;
+    padding:20px;
+  }
+  .nav-item{
+    margin-top: 10px;
+    margin-right:10px;
   }
 }
 
 #register-box{
   display: inline-block;
   float: right;
-  width: 400px;
-  height: 450px;
+  
   background: #FFF;
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   opacity: 0.9;
-  padding:20px;
+  
   margin: 0 auto;
 }
 

@@ -12,11 +12,11 @@
         input(type='hidden', name='_csrf', value=_csrf)
         ul.nav.navbar-nav.ml-auto
           li.nav-item(class=(title === 'Email') ? 'active' : undefined)
-            label(for='email') Email
-            input.form-control(type='email', name='email', id='email')
-          li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
-            label(for='password') Password
-            input.form-control(type='password', name='password', id='password', autocomplete='new-password')
+            //label(for='email' id="email_label") Email
+            input.form-control(type='email', name='email', id='email_login', placeholder="Email")
+          li.nav-item(style="margin-left: 20px;", class=(title === 'Create Account') ? 'active' : undefined)
+            //label(for='password' id="password_label") Password
+            input.form-control(placeholder="Password" type='password', name='password', id='password_login', autocomplete='new-password')
           .form-group
           button.btn.btn.btn-primary(type='submit', id="login")
             | Login
