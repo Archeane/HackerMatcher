@@ -9,6 +9,18 @@ body {
     font-family: montserrat, arial, verdana;
 }
 
+@media(min-width: 576px){
+#filters_no_show{
+  display:none;
+}
+}
+
+@media(min-width: 1024px){
+  #filters_no_show{
+    display:block;
+  }
+}
+
 
 .tooltip{
   padding: 5px;

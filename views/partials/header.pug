@@ -1,13 +1,14 @@
 .navbar.navbar-light.fixed-top.navbar-expand-lg
   .container
-    a.navbar-brand(href='/home')
+    a.navbar-brand(href='/home', id="logo_link")
       img(src="/favicon.png", height="32")
-      |        Hackers Matcher
-      button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+      span(id="company_name")
+        | Hackers Matcher
+      //button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
           span.sr-only Toggle navigation
           span.navbar-toggler-icon
     if !user
-      form(action='/login', method="POST")
+      form(action='/login', method="POST", id="login_form")
         input(type='hidden', name='_csrf', value=_csrf)
         ul.nav.navbar-nav.ml-auto
           li.nav-item(class=(title === 'Email') ? 'active' : undefined)
@@ -32,10 +33,11 @@
                   button#search-btn(type='submit') 
                     i.fa.fa-search
         li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
-          a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
-            img(src=user.profile.picture, id="headerPfp")
+          .dropdown-toggle.nav-link(data-toggle='dropdown')
+            a(href='/account')
+              img(src=user.profile.picture, id="headerPfp")
             span= user.name || user.email 
-            i.caret
+              i.caret
           ul.dropdown-menu
             li.dropdown-item
               a(href='/account') My Account
@@ -43,6 +45,6 @@
               a(href='/preferences') My Preferences
             li.dropdown-item
               a(href='/logout') Logout
-        a(href="/home")
+        //a(href="/home")
           button#home-btn.btn-primary(style="margin-top: 5px") Home
         

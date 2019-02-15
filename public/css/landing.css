@@ -23,19 +23,41 @@ body{
   min-height: 100%;
 }
 
-/*.container{
-  min-width: 110% !important;
+@media (min-width: 576px) {
+    
 }
-*/
 
-#register-box {
+@media(min-width: 576px){
+  #about-box{
+      display:none;
+  }
+
+  #register-box {  
+    top: 35%;
+    right: 20%;
+    position: fixed;
+  }
+}
+
+@media(min-width: 1202px){
+  
+  #about-box{
+      margin-top: 30%; 
+      margin-left: 0%;
+      float: left;
+      color: white;
+  }
+
+  #register-box {  
+    top: 25%;
+    right: 10%;
+    position: fixed;
+  }
+}
+
+#register-box{
   display: inline-block;
   float: right;
-  top: 25%;
-  right: 10%;
-
-  position: fixed;
-  margin: 0 auto;
   width: 400px;
   height: 450px;
   background: #FFF;
@@ -43,7 +65,7 @@ body{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   opacity: 0.9;
   padding:20px;
-  
+  margin: 0 auto;
 }
 
 #register-box h3, h5{
@@ -122,12 +144,6 @@ input[type="email"]:focus{
     text-align: center;
 }
 
-#about-box{
-    margin-top: 30%; 
-    margin-left: 0%;
-    float: left;
-    color: white;
-}
 
 #about-box h1{
   margin-left:20px;

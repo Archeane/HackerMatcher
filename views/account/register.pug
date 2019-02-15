@@ -30,18 +30,22 @@ block content
           .form-group.row
             label.col-md-3.col-form-label.font-weight-bold.text-right Gender <span class="asterisk">&#42<span>
             .col-sm-6
-              .pretty.p-default.p-curve
-                input(type='radio', name='gender', value='male' id='gender1')
-                .state.p-info-o
-                  label Male
-              .pretty.p-default.p-curve
-                input(type='radio', name='gender', value='female' id='gender2')
-                .state.p-info-o
-                  label Female
-              .pretty.p-default.p-curve
-                input(type='radio', name='gender', value='other' id='gender3')
-                .state.p-info-o
-                  label Other
+              .row
+                .col-md-4
+                  .pretty.p-default.p-curve
+                    input(type='radio', name='gender', value='male' id='gender1')
+                    .state.p-info-o
+                      label Male
+                .col-md-4
+                  .pretty.p-default.p-curve
+                    input(type='radio', name='gender', value='female' id='gender2')
+                    .state.p-info-o
+                      label Female
+                .col-md-4
+                  .pretty.p-default.p-curve
+                    input(type='radio', name='gender', value='other' id='gender3')
+                    .state.p-info-o
+                      label Other
           //School
           .form-group.row
             label.col-md-3.col-form-label.font-weight-bold.text-right(for='school') School <span class="asterisk">&#42<span>

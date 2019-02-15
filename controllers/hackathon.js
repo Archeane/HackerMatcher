@@ -384,7 +384,6 @@ exports.getHackathon = async(req,res, next) => {
 
 exports.getHackathonVisualization = async(req, res, next) =>{
 	var minifiedUsers = [];
-
 	if(pleasework == false){
 		try{
 			let hackathon = await Hackathon.findOne({id: req.params.id});
@@ -575,30 +574,31 @@ exports.getHackathonVisualization = async(req, res, next) =>{
 	}else if(pleasework == -1){
 		try{
 			let hackathon = await Hackathon.findOne({id: req.params.id});
+			var allHackers = hackathon.hackers;
+			var minifiedUsers = [];
+			for(let hacker of allHackers){
+				try{
+					let data = await User.findOne({'_id':hacker[0]});
+					var user = JSON.stringify({
+						"id": data._id,
+						"email":data.email,
+						"numOfHackathons":data.numOfHackathons,
+						"name": data.profile.name,
+						"profileurl": data.profile.picture,
+						"school":data.profile.school,
+						"major":data.profile.major,
+						"graduationYear":data.profile.graduationYear,
+						"educationLevel":data.profile.educationLevel,
+						"score": hacker[1]
+					});
+					minifiedUsers.push(user);
+				}catch(err){continue;}
+			}
 		}catch(err){
 			res.send("Server Error, cannot display visualization at this moment. Please try again later.");
 			return next(err);
 		}
-		var allHackers = hackathon.hackers;
-		var minifiedUsers = [];
-		for(let hacker of allHackers){
-			try{
-				let data = await User.findOne({'_id':hacker[0]});
-				var user = JSON.stringify({
-					"id": data._id,
-					"email":data.email,
-					"numOfHackathons":data.numOfHackathons,
-					"name": data.profile.name,
-					"profileurl": data.profile.picture,
-					"school":data.profile.school,
-					"major":data.profile.major,
-					"graduationYear":data.profile.graduationYear,
-					"educationLevel":data.profile.educationLevel,
-					"score": hacker[1]
-				});
-				minifiedUsers.push(user);
-			}catch(err){continue;}
-		}
+		
 
 		/*Hackathon.findOne({id:req.params.id}, (err, hackathon)=>{
 			if(err){
@@ -644,6 +644,10 @@ exports.getHackathonVisualization = async(req, res, next) =>{
 	}else{
 		var topfiftyhackers = pleasework;
 		var minifiedUsers = [];
+		if(topfiftyhackers.length == 0){
+			let hackathon = await Hackathon.findOne({id: req.params.id});
+			topfiftyhackers = hackathon.hackers;
+		}
 		for(let hacker of topfiftyhackers){
 			try{
 				let data = await User.findOne({'_id':hacker[0]});
@@ -663,16 +667,34 @@ exports.getHackathonVisualization = async(req, res, next) =>{
 			}catch(err){continue;}
 		}
 	}
-	console.log('658');
 	if(minifiedUsers && minifiedUsers.length > 0){
-		console.log('659');
 		res.render('visualization', {
 			title:'Visualization', matches: minifiedUsers
 		});
 	}else{
-		console.log('664');
+		let hackathon = await Hackathon.findOne({id: req.params.id});
+		var arr = hackathon.hackers;
+		var minifiedUsers = [];
+		for(let hacker of arr){
+			try{
+				let data = await User.findOne(hacker);
+				var user = JSON.stringify({
+					"id": data._id,
+					"email":data.email,
+					"numOfHackathons":data.numOfHackathons,
+					"name": data.profile.name,
+					"profileurl": data.profile.picture,
+					"school":data.profile.school,
+					"major":data.profile.major,
+					"graduationYear":data.profile.graduationYear,
+					"educationLevel":data.profile.educationLevel,
+					"score": 1
+				});
+				minifiedUsers.push(user);
+			}catch(err){continue;}
+		}
 		res.render('visualization', {
-			title:'Visualization', matches: false
+			title:'Visualization', matches: minifiedUsers
 		});
 	}
 		/*new Promise(async(resolve, reject) => {

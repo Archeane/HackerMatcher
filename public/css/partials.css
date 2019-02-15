@@ -4,6 +4,17 @@ body {
     font-family: montserrat, arial, verdana;
 }
 
+@media(max-width: 762px){
+  #logo_link{
+    margin-left: -2em;
+  }
+}
+
+@media(min-width: 762px){
+  /* #company_name{
+    display: block;  
+  } */
+}
 
 /*CONVERSATION BAR*/
 #conversation-list-container{
