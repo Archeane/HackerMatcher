@@ -19,8 +19,15 @@ function createFilterBox(option, type){
 
 
 function bubbleChart() {
-  var width = 1200;
-  var height = 1200;
+  var width = 0;
+  var height = 0;
+  if($(window).width()>500){
+	  var width = 1000;
+	  var height = 1000;
+  }else{
+  	var width = $(window).width()*2;
+	var height = $(window).height()*1.2;
+  }
 
   var tooltip = floatingTooltip('hackers_tooltip', 240);
 
@@ -244,8 +251,15 @@ function contains(arr, key, val) {
 }
 
 function display(data, filters) {
+	if ($(window).width() > 500){	//desktopview
+		$('.mobile-view').hide();
+		$('.desktop-view').show();
+	}else{
+		$('.mobile-view').show();
+		$('.desktop-view').hide();
+	}
+
   if(filters){
-  	console.log(filters);
   	var filteredData = [];
   	if(filters.major.length == 0 && filters.graduationYear.length == 0 && filters.numOfHackathons.length == 0){
   		//filters.educationLevel.length == 0 && ){
@@ -283,7 +297,6 @@ function display(data, filters) {
 	  			}
 		    } 
 	  	}
-	  	console.log(filteredData);
 	  	myBubbleChart('#vis',filteredData);
   	}
   }else{
@@ -419,12 +432,20 @@ var filters = JSON.parse(filterString);
 
 for(i = 0; i < allMajors.length; i++){
 	var option = createFilterBox(allMajors[i], 'major');
-	$('#major').append(option)
+	if($(window).width() > 500){
+		$('#major').append(option);
+	}else{
+		$('#major_mobile').append(option);
+	}
 	filters['major'].push(allMajors[i]);
 }
 for(i = 0; i < allGradYears.length; i++){
 	var option = createFilterBox(allGradYears[i], 'graduationYear');
-	$('#graduationYear').append(option)
+	if($(window).width() > 500){
+		$('#graduationYear').append(option);
+	}else{
+	  $('#graduationYear_mobile').append(option);
+	}
 	filters['graduationYear'].push(allGradYears[i].toString());
 }
 
@@ -444,7 +465,11 @@ for(i = 0; i < allNumOfHacks.length; i++){
 	container.append(checkBox);
 	container.append(label);
 	container.append(h4);
-	$('#numOfHackathons').append(container)
+	if($(window).width() > 500){
+		$('#numOfHackathons').append(container);
+	}else{
+		$('#numOfHackathons_mobile').append(container)
+	}
 	filters['numOfHackathons'].push(allNumOfHacks[i].toString());
 }
 /*for(i = 0; i < allEduLevels.length; i++){
@@ -478,7 +503,7 @@ $(':checkbox').on('change',function(){
 
 display(MatchesJSON);
 
-$('#setFilters').on('click', ()=>{
+$('.setFilters').on('click', ()=>{
 	$('#vis').empty();
 	$("html, body").animate({ scrollTop: 0 }, "slow");
 	display(MatchesJSON, filters);

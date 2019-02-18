@@ -8,13 +8,36 @@ block append head
     script(src="/js/visualization.js")
 
 block content
+  .mobile-view
+    .filters-container
+      .dropdown.show
+        a.dropdown-toggle#majorsDropdown(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+          | Majors
+        .dropdown-menu#major_mobile.bump(aria-labelledby="majorsDropdown")
+      .dropdown.show
+        a.dropdown-toggle#graduationYearDropdown(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+          | Grad Year
+        .dropdown-menu#graduationYear_mobile.bump(aria-labelledby="graduationYearDropdown")
+      .dropdown.show
+        a.dropdown-toggle#numOfHackathonsDropdown(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+          | Hackathons
+        .dropdown-menu#numOfHackathons_mobile.bump(aria-labelledby="numOfHackathonsDropdown")
+    button.btn-primary.setFilters Set Filters
+    //- 
+      .col-md-3
+        .dropdown.show.mobile-view
+          a.dropdown-toggle#numOfHackathons(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+            | Hackathons
+          .dropdown-menu#numOfHackathons(aria-labelledby="numOfHackathons")
+      .col-md-3
+        button.btn-primary#setFilters Set Filters
   .row
-    .col-md-3(id="filters_no_show")
+    .col-md-3.desktop-view
       <aside id="filters">
         <h1 class="bigHead">FILTERS</h1>
         <div class="filter">
           <h1>Major</h1>
-          <div class="bump" id="major">
+          <div class="bump"  id="major">
           </div>
         </div>
         <div class="filter">
@@ -24,26 +47,15 @@ block content
         </div>
         <div class="filter">
           <h1>Hackathons</h1>
-          <div class="specBump" id="numOfHackathons">
+          <div class="specBump"  id="numOfHackathons">
           </div>
         </div>
-        //-
-          <div class="filter">
-            <h1>Education Level</h1>
-            <div class="bump" id="educationLevel">
-            </div>
-          </div>
-        button.btn-primary#setFilters Set Filters
-        //- <div class="filter">
-        //-   <h1 id="hidedummyh1">Set filteadwdwrs</h1>
-        //-   <div class="bump">
-        //-   </div>
-        //- </div>
+        button.btn-primary.setFilters.mt-5 Set Filters
       </aside>
     .col-md-8
       <p style="font-size: 16px;">*The radius of each profile corresponds to how closely you match to that hacker</p>
       <div id = "vis"></div>
     .col-md-1
-    script.
-        var Matches = !{JSON.stringify(matches)};
-        //console.log(Matches);
+  script.
+      var Matches = !{JSON.stringify(matches)};
+      //console.log(Matches);

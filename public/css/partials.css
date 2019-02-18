@@ -4,11 +4,43 @@ body {
     font-family: montserrat, arial, verdana;
 }
 
-@media(max-width: 762px){
-  #logo_link{
-    margin-left: -2em;
+@media(max-width: 767px){   
+  #desktop_view{
+    display:none;
+  }
+  #mobile_view{
+    display: block;
   }
   
+}
+
+@media(min-width: 768px){   
+  #desktop_view{
+    display:block;
+  }
+  #mobile_view{
+    display: none;
+  }
+  
+}
+
+/*Mobile View*/
+#mobile_view input{
+    width:35%;
+    margin-top: 4%;
+}
+
+#mobile_view button{
+    width: 12%;
+    margin-top: 4%;
+    height: 30px;
+    font-size:12px;
+    padding:0px;
+}
+
+
+#desktop_view #login_form{
+    margin-top:10px;
 }
 
 
@@ -107,9 +139,11 @@ body {
     outline:none;
 }
 
-#headerPfp{
+.headerPfp{
     border-radius: 50%;
     border: 1px solid black;
+    height: 32px;
+    width: 32px;
 }
 
 

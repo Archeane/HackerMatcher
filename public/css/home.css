@@ -42,17 +42,46 @@ a {
     position: relative;
     animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
 }
+@media(max-width: 999px){
+    .card {
+        width: 350px;
+        min-height: 100px;
+        padding: 15px;
+        border-radius: 2px;
+        background-color: white;
+        box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 1em; 
+        margin-left:1em;
+    }
 
-.card {
-    width: 500px;
-    min-height: 100px;
-    padding: 20px;
-    border-radius: 3px;
-    background-color: white;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1.5em; 
+    .firstinfo {
+        flex-direction: row;
+        z-index: 2;
+        position: relative;
+        margin-left:7em;
+    }
+}
+
+@media(min-width: 1000px){ 
+    .card {
+        width: 500px;
+        min-height: 100px;
+        padding: 20px;
+        border-radius: 3px;
+        background-color: white;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 1.5em; 
+    }
+
+    .firstinfo {
+        flex-direction: row;
+        z-index: 2;
+        position: relative;
+    }
 }
 
 .card:after {
@@ -85,11 +114,6 @@ a {
     opacity: 0.6;
 }
 
-.firstinfo {
-    flex-direction: row;
-    z-index: 2;
-    position: relative;
-}
 
 .firstinfo img {
     border-radius: 50%;

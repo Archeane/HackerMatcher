@@ -1,27 +1,34 @@
-.navbar.navbar-light.fixed-top.navbar-expand-lg
-  .container
-    a.navbar-brand(href='/home', id="logo_link")
-      img(src="/favicon.png", height="32")
-      span(id="company_name")
-        | Hackers Matcher
-      //button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-          span.sr-only Toggle navigation
-          span.navbar-toggler-icon
+//.navbar.navbar-light.fixed-top.navbar-expand-lg
+.navbar.navbar-inverse.fixed-top.navbar-expand-lg.navbar-light.bg-light
+  .container#desktop_view
+    //desktop view
+    
+    //button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+        span.sr-only Toggle navigation
+        span.navbar-toggler-icon
     if !user
+      a.navbar-brand(href='/home')
+        img(src="/favicon.png", height="32")
+        span
+          | Hackers Matcher
       form(action='/login', method="POST", id="login_form")
         input(type='hidden', name='_csrf', value=_csrf)
-        ul.nav.navbar-nav.ml-auto
+        ul.nav.navbar-nav.ml-auto.pull-right.mt-2
           li.nav-item(class=(title === 'Email') ? 'active' : undefined)
             //label(for='email' id="email_label") Email
-            input.form-control(type='email', name='email', id='email_login', placeholder="Email")
+            input.form-control(type='email', name='email', placeholder="Email")
           li.nav-item(style="margin-left: 20px;", class=(title === 'Create Account') ? 'active' : undefined)
             //label(for='password' id="password_label") Password
-            input.form-control(placeholder="Password" type='password', name='password', id='password_login', autocomplete='new-password')
+            input.form-control(placeholder="Password" type='password', name='password', autocomplete='new-password')
           .form-group
-          button.btn.btn.btn-primary(type='submit', id="login")
+          button.btn.btn.btn-primary.ml-2(type='submit', id="login")
             | Login
     else
-      ul.nav.navbar-nav.ml-auto
+      a.navbar-brand(href='/home')
+        img(src="/favicon.png", height="32")
+        span
+          | Hackers Matcher
+      ul.nav.navbar-nav(style="float:right !important; margin-top: 1em;")
         //-
           li
             form(id="searchForm")
@@ -32,10 +39,10 @@
                 span.input-group-btn
                   button#search-btn(type='submit') 
                     i.fa.fa-search
-        li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+        li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item(style="float:right !important;")
           .dropdown-toggle.nav-link(data-toggle='dropdown')
             a(href='/account')
-              img(src=user.profile.picture, id="headerPfp")
+              img.headerPfp(src=user.profile.picture)
             span= user.name || user.email 
               i.caret
           ul.dropdown-menu
@@ -46,5 +53,29 @@
             li.dropdown-item
               a(href='/logout') Logout
         //a(href="/home")
-          button#home-btn.btn-primary(style="margin-top: 5px") Home
-        
+          button#home-btn.btn-primary(style="margin-top: 5px") 
+            | Home
+  .container-fluid#mobile_view
+    if !user
+      form.navbar-form.navbar-left(action="login", method="POST", id="login_form_mobile")
+        input(type='hidden', name='_csrf', value=_csrf)
+        .input-group
+          input(type="text", placeholder="Email", name="email")
+          input(type="password",placeholder="Password", name="password", autocomplete="new-password")
+          button.btn.btn.btn-primary(type='submit')
+            | Login
+    else
+      a.navbar-brand(href="/home")
+        img(src="/favicon.png", height="35")
+      .dropdown-toggle.nav-link(data-toggle='dropdown',style="float:right !important; margin-top: 1em;")
+        i.caret
+      ul.dropdown-menu
+        li.dropdown-item
+          a(href='/preferences') My Preferences
+        li.dropdown-item
+          a(href='/logout') Logout
+      a(href='/account', style="float:right !important;margin-top: 1em;")
+        img.headerPfp(src=user.profile.picture)
+      
+      
+          
