@@ -420,10 +420,10 @@ exports.postRegister = (req, res, next) => {
     user.socialmedia.groupme = req.body.groupme || '';
     user.socialmedia.phone = req.body.phone || '';
     //---------------------care scores-----------------------------------
-    user.careScores.interests = -1;
-    user.careScores.languages = -1;
-    user.careScores.technologies = -1;
-    user.careScores.fields = -1;
+    user.careScores.interests = 2;
+    user.careScores.languages = 2;
+    user.careScores.technologies = 2;
+    user.careScores.fields = 2;
     //---------upload profile to gcloud-----------
     const file = req.file;
     if(file){ //upload pfp to gcloud
