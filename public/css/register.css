@@ -22,6 +22,62 @@ body {
 	color: red !important;
 }
 
+@media(max-width: 767px){   
+  #img-upload{
+    height: 200px;
+    width: 200px;
+  }
+
+  #fieldset3 input{
+    width: 100%;
+  }
+  #fieldset1 select{
+    margin-top: 10px;
+    height: 30px;
+    width: 100%;
+  }
+  #fieldset1 input{
+    width: 100%;
+  }
+}
+
+@media(min-width: 768px){   
+  #img-upload{
+    height: 250px;
+    width: 250px;
+  }
+  #fieldset3 input{
+    width: 80%;
+  }
+  #fieldset1 input{
+    width: 80%;
+  }
+  #fieldset1 select{
+    margin-top: 10px;
+    height: 30px;
+    width: 85%;
+  }
+}
+
+@media(min-width: 1022px){   
+  #img-upload{
+    height: 300px;
+    width: 300px;
+  }
+  #fieldset3 input{
+    width: 70%;
+  }
+
+  #fieldset1 select{
+    margin-top: 10px;
+    height: 30px;
+    width: 70%;
+  }
+  #fieldset1 input{
+    width: 70%;
+  }
+}
+
 /*form styles*/
 #msform {
     text-align: center;
@@ -54,7 +110,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 0px;
     margin-bottom: 20px;
-    width: 100%;
     box-sizing: border-box;
     font-family: montserrat;
     color: #2C3E50;
@@ -73,11 +128,7 @@ body {
     -o-transition: All 0.5s ease-in;
 }
 
-#msform select{
-    margin-top: 10px;
-    height: 30px;
-    width: 70%;
-}
+
 
 #msform #fieldset1 label{
     margin-top:10px;

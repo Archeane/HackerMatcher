@@ -167,7 +167,7 @@ var app = new Vue({
 	}
 });
 
-
+/*TODO: fix overflow numbers
 $('#app :input').keypress(function(event) {
     event.preventDefault();
-});
+});*/

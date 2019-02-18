@@ -18,8 +18,8 @@ block content
       form(action='/register?_csrf='+_csrf, method='POST', enctype='multipart/form-data', id="msform")
         <ul id="progressbar">
           <li class="active">Personal Details</li>
+          <li>Preferences Settings</li>
           <li>Social Profiles</li>
-          <li>Account Setup</li>
         </ul>
         <fieldset id="fieldset1">
           //Gender
@@ -52,7 +52,7 @@ block content
             <div class="col-md-3" style="margin-left: -12px;">
               <label class="font-weight-bold">School:</label><span class="asterisk">&#42<span>
             </div>
-            input(id="school", name="school", type="text", style="width:70%; height:30px; margin-top:10px;", placeholder="Please enter the insitution you attend")
+            input(id="school", name="school", type="text", style="height:30px; margin-top:10px;", placeholder="Please enter the insitution you attend")
           </div>
           <div class="row">
             <div class="col-md-3" style="margin-left: -12px;">
@@ -123,11 +123,11 @@ block content
           <input type="button" name="next" class="next action-button" value="Next" id="next2" />
         </fieldset>
         <fieldset id="fieldset3">
-          <div>
+          .center
               .label Upload Profile Image
               input(type="file", name="myFile", id="imgInp")
-              img#img-upload(height='300;', width='300;')
-          </div>
+              img#img-upload
+              p Pick a picture so people can recognize you :)
           <div style="padding-top:15px;">
             
           </div>
@@ -136,62 +136,62 @@ block content
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Website:</label>
               </div>
-              <input style="width:70%;" name="website" placeholder="Personal Website" />
+              <input name="website" placeholder="Personal Website Link" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Devpost:</label>
               </div>
-              <input style="width:70%;" name="devpost" placeholder="Devpost" />
+              <input name="devpost" placeholder="Devpost Link" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Linkedin:</label>
               </div>
-              <input style="width:70%;" name="linkedin" placeholder="https://www.linkedin.com/your_name" />
+              <input name="linkedin" placeholder="/in/your_name" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Github:</label>
               </div>
-              <input style="width:70%;" name="github" placeholder="https://www.github.com/your_name" />
+              <input name="github" placeholder="Github user name" />
             </div>
             #error_social.row(style="background: red; color: #fff;display:none;padding:3px; margin-bottom: 7px;") Please enter at least one method of contact
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Slack:</label>
               </div>
-              <input style="width:70%;" id="slack" name="slack" placeholder="Slack Username" />
+              <input id="slack" name="slack" placeholder="Slack Username" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Facebook:</label>
               </div>
-              <input style="width:70%;" id="facebook" name="facebook" placeholder="https://www.facebook.com/your_name" />
+              <input id="facebook" name="facebook" placeholder="Link to your facebook profile" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Instagram:</label>
               </div>
-              <input style="width:70%;" id="instagram" name="instagram" placeholder="https://www.instagram.com/your_name" />
+              <input id="instagram" name="instagram" placeholder="Instagram user name" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>WhatsApp:</label>
               </div>
-              <input style="width:70%;" id="whatsapp" name="whatsapp" placeholder="" />
+              <input id="whatsapp" name="whatsapp" placeholder="Phone Number" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Wechat:</label>
               </div>
-              <input style="width:70%;" id="wechat" name="wechat" placeholder="" />
+              <input id="wechat" name="wechat" placeholder="WeChat ID/Phone Number" />
             </div>
             <div class="row">
               <div class="col-md-3" style="margin-left: -12px;">
                 <label>Groupme:</label>
               </div>
-              <input style="width:70%;" id="groupme" name="groupme" placeholder="" />
+              <input id="groupme" name="groupme" placeholder="Name/Email/Phone Number" />
             </div>
 
           </div>
