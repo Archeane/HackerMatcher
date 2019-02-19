@@ -67,33 +67,27 @@
     else
       a.navbar-brand(href="/home")
         img(src="/favicon.png", height="35")
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigationbar">
-           <span class="sr-only">Toggle navigation</span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="navigationbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="./Index.html">Startseite</a></li>
-          <li><a href="./Rueckblick.html">R&uuml;ckblick</a></li>
-          <li><a href="./Wettbewerb.html">Wettbewerb</a></li>    
-          <li><a href="./anmelden.html">Anmelden</a></li>
-          <li><a href="./sponsoren.html">Sponsoren</a></li>
-        </ul>
-      </div>
       //-
-        .nav-link.ml-5(data-toggle='dropdown',style="float:right !important; margin-top: 1em;", data-target="#navigationbar")
-          i.fas.fa-cog.fa-2x(style="margin-top: -7px;")
-        ul.dropdown-menu#navigationbar
-          li.dropdown-item
-            a(href='/preferences') My Preferences
-          li.dropdown-item
-            a(href='/logout') Logout
-        a(href='/account', style="float:right !important;margin-top: 1em;")
+        .navbar-header.mt-3(style="float:right;")
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navigationbar", style="border:none; background:none; color: inherit; outline: inherit;")
+            i.fas.fa-cog.fa-2x
+        .collapse.navbar-collapse#navigationbar(style="float:right; margin-top: 70px;")
+          ul.nav.navbar-nav
+            li
+              a(href='/preferences') My Preferences
+            li
+              a(href='/logout') Logout
+        a.mr-4(href='/account', style="float:right !important;margin-top: 1em;")
           img.headerPfp(src=user.profile.picture)
-      
+      button.mt-4.ml-5(type="button", data-toggle='dropdown',style="float:right !important; margin-top: 1em; border:none; background:none; color: inherit; outline: inherit;", data-target="#navigationbar")
+        i.fas.fa-cog.fa-2x(style="margin-top: -7px;")
+      ul.dropdown-menu#navigationbar
+        li.dropdown-item
+          a(href='/preferences') My Preferences
+        li.dropdown-item
+          a(href='/logout') Logout
+      a(href='/account', style="float:right !important;margin-top: 1em;")
+        img.headerPfp(src=user.profile.picture)
+    
       
           
