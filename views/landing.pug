@@ -4,108 +4,113 @@ block append css
     link(rel='stylesheet', href='/css/landing.css')
 
 block content
-    .desktop-view
-        #about-box.center 
-            h1
-                | Hackers Matcher
-            h2
-                | Meet your perfect team
-        #register-box
-            h1#title
-                | Sign up
-            form(action='/signup', method='POST', id="signupForm")
-                input(type='hidden', name='_csrf', value=_csrf)
-                #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
-                .form-group
-                input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
-                .form-group
-                input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
-                .form-group
-                input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
-                .form-group
-                input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
-                .form-group
-                input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
-                .form-group.offset-sm-3.col-md-7.pl-2
-                <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
-    .mobile-view
-        #about-box.center 
-            h1
-                | Hackers Matcher
-            h2
-                | Meet your perfect team
-        #register-box
-            h3#title
-                | Sign up
-            form(action='/signup', method='POST', id="signupForm")
-                input(type='hidden', name='_csrf', value=_csrf)
-                #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
-                input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
-                input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
-                input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
-                input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
-                input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
-                .form-group.offset-sm-3.col-md-7.pl-2
-                <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
     //-
-        #landing
+        .desktop-view
             #about-box.center 
                 h1
                     | Hackers Matcher
                 h2
                     | Meet your perfect team
-                button.btn.btn-success#scrollToSignup
-                    | Try HackerMatcher
-            #gif-container
-                img#gif(src="https://media.giphy.com/media/l3q2yYNt8DXoyKRdm/giphy.gif")
-        #slogan.center
-            h1 Enhance Your Hackathon Experience
-
-        #features.center
-            h3 What Makes Us Different
-            .row
-                .col-md-1
-                .col-md-4
-                    img(src="https://images.ctfassets.net/1khq4uysbvty/BwGj7jRYGjwvlBzI3YwmU/cb185690aa2c1a35e5de51150bac60fc/team_libraries.png")
-                    p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                .col-md-1
-                .col-md-4
-                    img(src="https://images.ctfassets.net/1khq4uysbvty/1NnSgyIeLZdM6YcnWA41GU/2518c2fc7587c094fa6f1fffd3f8af33/Components.png")
-                    p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-
-        #register.center
             #register-box
-                .desktop-view
-                    h1#title
-                        | Sign up
-                    form(action='/signup', method='POST', id="signupForm")
-                        input(type='hidden', name='_csrf', value=_csrf)
-                        #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
-                        .form-group
-                        input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
-                        .form-group
-                        input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
-                        .form-group
-                        input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
-                        .form-group
-                        input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
-                        .form-group
-                        input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
-                        .form-group.offset-sm-3.col-md-7.pl-2
-                        <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
-                .mobile-view
-                    h3
-                        | Sign up
-                    form(action='/signup', method='POST', id="signupForm")
-                        input(type='hidden', name='_csrf', value=_csrf)
-                        #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
-                        input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
-                        input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
-                        input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
-                        input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
-                        input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
-                        .form-group.offset-sm-3.col-md-7.pl-2
-                        <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
+                h1#title
+                    | Sign up
+                form(action='/signup', method='POST', id="signupForm")
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
+                    .form-group
+                    input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
+                    .form-group
+                    input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
+                    .form-group
+                    input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
+                    .form-group
+                    input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
+                    .form-group
+                    input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
+                    .form-group.offset-sm-3.col-md-7.pl-2
+                    <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
+        .mobile-view
+            #about-box.center 
+                h1
+                    | Hackers Matcher
+                h2
+                    | Meet your perfect team
+            #register-box
+                h3#title
+                    | Sign up
+                form(action='/signup', method='POST', id="signupForm")
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
+                    input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
+                    input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
+                    input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
+                    input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
+                    input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
+                    .form-group.offset-sm-3.col-md-7.pl-2
+                    <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
+    
+    #landing
+        #about-box.center 
+            h1
+                | Hackers Matcher
+            h2
+                | Meet your perfect team
+            button.btn.btn-success#scrollToSignup
+                | Try HackerMatcher
+        #gif-container
+            img#gif(src="/assets/landing_demo.gif")
+    #slogan.center
+        h2 Built by hackers, for hackers
+        h3 Worry less about finding your ideal team. Spend more time hacking
+        //Find your ideal team so you can worry less about finding and spend more time hacking
+
+    #features.center
+        h3 What Makes Us Different
+        .row
+            .col-md-1
+            .col-md-4
+                img(src="/assets/landing_feature_1.png")
+                h3 Customized Matching Algorithm
+                p Any hackathon that you select will instantly give you a list of hackers that most closely match your interests and skill level. Quick and simple! 
+            .col-md-1
+            .col-md-4
+                img(src="/assets/landing_feature_2.png")
+                h3 Choose Your Team
+                p Want to see a complete list of hackers? Our visualization gives you an intuitive view of attendees, with the ability to filter them based on major, graduation year, and hackathon experience.
+
+    #register.center
+        #register-box
+            .desktop-view
+                h1#title
+                    | Sign up
+                form(action='/signup', method='POST', id="signupForm")
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
+                    .form-group
+                    input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
+                    .form-group
+                    input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
+                    .form-group
+                    input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
+                    .form-group
+                    input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
+                    .form-group
+                    input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
+                    .form-group.offset-sm-3.col-md-7.pl-2
+                    <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
+            .mobile-view
+                h3
+                    | Sign up
+                form(action='/signup', method='POST', id="signupForm")
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    #error(style="background: red; color: #fff; width: 80%; display:none;padding:5px;")
+                    input.form-control(type="text", name="firstname", id='reg-firstname',placeholder="First Name",required)
+                    input.form-control(type="text", name="lastname", id='reg-lastname',placeholder="Last Name",required)
+                    input.form-control(type="email", name="email", id='reg-email',placeholder="Email",required)
+                    input.form-control(type="password", name="password", id='reg-password',placeholder="Password",required)
+                    input.form-control(type="password", name="confirmPassword", id='reg-confirmpassword',placeholder="Confirm Password",required)
+                    .form-group.offset-sm-3.col-md-7.pl-2
+                    <button class= "btn btn-success" type='submit' id="submitRegister"><i class= "fas fa-user-plus"></i>Register</button>
                 
     //img.background(src="https://thecampusconnect.com/wp-content/uploads/2018/06/features-image-12.jpg")
     script.
