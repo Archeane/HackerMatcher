@@ -362,7 +362,8 @@ exports.postRegister = (req, res, next) => {
       }
     }
     user.preferences.fields=fields || [];
-
+    
+    user.profile.about = req.body.aboutMe || "";
     //-----------------------------social media-------------------------------
     if(req.body.facebook){
       if(req.body.facebook.includes('facebook.com')){
@@ -474,6 +475,7 @@ exports.postRegister = (req, res, next) => {
           }
           return next(err);
         }
+        
         req.flash('success', { msg: 'Profile information has been updated.' });
         res.redirect('/home')
       });

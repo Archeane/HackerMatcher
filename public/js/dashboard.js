@@ -34,6 +34,7 @@ if(User.numOfHackathons){
 	}
 }
 
+
 $('#aboutMe').text(User.profile.about || '');
 $('#aboutMeSettings').text(User.profile.about || '');
 if(User.numOfHackathons){
